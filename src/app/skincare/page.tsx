@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import SkincarePage from "@/components/SkincarePage";
+import CarePathPage from "@/components/CarePathPage";
 
 export const metadata: Metadata = {
   title: "Prescription Skincare Online — medviCare",
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function SkincareRoute() {
-  return <SkincarePage />;
+  return <CarePathPage slug="skin" />;
 }

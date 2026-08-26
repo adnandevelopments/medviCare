@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import SexualHealthPage from "@/components/SexualHealthPage";
+import CarePathPage from "@/components/CarePathPage";
 
 export const metadata: Metadata = {
   title: "Sexual Health — Choose Your Plan — medviCare",
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function SexualHealthRoute() {
-  return <SexualHealthPage />;
+  return <CarePathPage slug="sexual-health" />;
 }

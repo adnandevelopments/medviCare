@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import BodyOptimizationPage from "@/components/BodyOptimizationPage";
+import CarePathPage from "@/components/CarePathPage";
 
 export const metadata: Metadata = {
   title: "Body Optimization & GLP-1 Weight Loss — medviCare",
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function BodyOptimizationRoute() {
-  return <BodyOptimizationPage />;
+  return <CarePathPage slug="weight-loss" />;
 }

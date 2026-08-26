@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import QuitSmokingPage from "@/components/QuitSmokingPage";
+import CarePathPage from "@/components/CarePathPage";
 
 export const metadata: Metadata = {
   title: "Quit Smoking with ZONNIC — medviCare",
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function ZonnicPage() {
-  return <QuitSmokingPage />;
+  return <CarePathPage slug="quit-smoking" />;
 }

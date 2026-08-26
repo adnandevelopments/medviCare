@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import LongevityPage from "@/components/LongevityPage";
+import CarePathPage from "@/components/CarePathPage";
 
 export const metadata: Metadata = {
   title: "Longevity Program — Live Longer — medviCare",
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function LongevityRoute() {
-  return <LongevityPage />;
+  return <CarePathPage slug="longevity" />;
 }

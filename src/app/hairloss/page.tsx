@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import HairLossPage from "@/components/HairLossPage";
+import CarePathPage from "@/components/CarePathPage";
 
 export const metadata: Metadata = {
   title: "Stop Hair Loss — Online Care — medviCare",
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function HairLossRoute() {
-  return <HairLossPage />;
+  return <CarePathPage slug="hair-loss" />;
 }

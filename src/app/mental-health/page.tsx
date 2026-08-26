@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import MentalHealthPage from "@/components/MentalHealthPage";
+import CarePathPage from "@/components/CarePathPage";
 
 export const metadata: Metadata = {
   title: "Online Mental Health Care — medviCare",
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function MentalHealthRoute() {
-  return <MentalHealthPage />;
+  return <CarePathPage slug="mental-health" />;
 }
