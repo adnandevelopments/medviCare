@@ -224,58 +224,65 @@ body::before {
   color: var(--ppc-primary);
 }
 
-/* Scroll reveal — visible by default so mobile never paints a blank section */
+/* Scroll reveal — first paint stays visible; JS then animates below-fold blocks */
 .reveal {
   opacity: 1;
   transform: none;
   filter: none;
-  transition-property: opacity, transform, filter;
+  transition-property: opacity, transform;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-  transition-duration: 500ms;
+  transition-duration: 480ms;
 }
 
-.reveal-fade-in {
-  transform: none;
+.reveal.is-ready:not(.is-visible) {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+}
+
+.reveal-slide-left.is-ready:not(.is-visible) {
+  transform: translate3d(-18px, 0, 0);
+}
+
+.reveal-slide-right.is-ready:not(.is-visible) {
+  transform: translate3d(18px, 0, 0);
+}
+
+.reveal-scale-in.is-ready:not(.is-visible) {
+  opacity: 0;
+  transform: translate3d(0, 10px, 0) scale(0.98);
 }
 
 .reveal.is-visible {
   opacity: 1;
   transform: none;
-  filter: blur(0);
 }
 
-@media (min-width: 768px) {
-  .reveal:not(.is-visible) {
+@keyframes reveal-in {
+  from {
     opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-enter {
+  animation: reveal-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal.is-ready:not(.is-visible),
+  .reveal-slide-left.is-ready:not(.is-visible),
+  .reveal-slide-right.is-ready:not(.is-visible),
+  .reveal-scale-in.is-ready:not(.is-visible) {
+    opacity: 1;
+    transform: none;
   }
 
-  .reveal-fade-up:not(.is-visible) {
-    transform: translateY(24px);
-  }
-
-  .reveal-slide-left:not(.is-visible) {
-    transform: translateX(-32px);
-  }
-
-  .reveal-slide-right:not(.is-visible) {
-    transform: translateX(32px);
-  }
-
-  .reveal-scale-in:not(.is-visible) {
-    transform: scale(0.96);
-  }
-
-  .reveal-blur-up:not(.is-visible) {
-    transform: translateY(16px);
-  }
-
-  .reveal-rise:not(.is-visible) {
-    transform: translateY(28px);
-  }
-
-  .reveal-image-in:not(.is-visible) {
-    transform: translateY(24px);
-    opacity: 0;
+  .hero-enter {
+    animation: none;
   }
 }
 

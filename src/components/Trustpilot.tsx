@@ -49,10 +49,13 @@ export default function Trustpilot() {
           </blockquote>
         </Reveal>
 
+        <Reveal variant="fade-up">
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-          {rest.map((review, i) => (
-            <Reveal key={review.title + review.name} delay={140 + i * 70} variant="rise">
-              <article className="motion-card flex h-full flex-col rounded-xl border border-ppc-border bg-ppc-surface p-5">
+          {rest.map((review) => (
+              <article
+                key={review.title + review.name}
+                className="motion-card flex h-full flex-col rounded-xl border border-ppc-border bg-ppc-surface p-5"
+              >
                 <p className="mb-3 text-[12px] text-ppc-accent">★★★★★</p>
                 <h3 className="mb-2 text-[15px] font-semibold text-ppc-primary">
                   {review.title}
@@ -62,9 +65,9 @@ export default function Trustpilot() {
                 </p>
                 <p className="mt-4 text-[13px] text-ppc-primary/72">{review.name}</p>
               </article>
-            </Reveal>
           ))}
         </div>
+        </Reveal>
       </div>
     </section>
   );

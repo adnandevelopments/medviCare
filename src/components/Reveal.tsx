@@ -26,49 +26,56 @@ export default function Reveal({
   className = "",
   variant = "fade-up",
   delay = 0,
-  duration = 500,
+  duration = 480,
   once = true,
 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
-  /** Visible on first paint so mobile never sits on a blank white block. */
   const [visible, setVisible] = useState(true);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
-    const mobile = window.matchMedia("(max-width: 767px)").matches;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (mobile || reduce) {
+    if (reduce) {
       setVisible(true);
+      setReady(true);
       return;
     }
+
+    const inView = el.getBoundingClientRect().top < window.innerHeight * 0.92;
+    if (inView) {
+      setVisible(true);
+      setReady(true);
+      return;
+    }
+
+    setVisible(false);
+    setReady(true);
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true);
           if (once) observer.unobserve(el);
-        } else if (!once) {
-          setVisible(false);
         }
       },
-      { threshold: 0.05, rootMargin: "120px 0px" },
+      { threshold: 0.08, rootMargin: "0px 0px -6% 0px" },
     );
-
-    const rect = el.getBoundingClientRect();
-    if (rect.top > window.innerHeight * 0.95) setVisible(false);
 
     observer.observe(el);
     return () => observer.disconnect();
   }, [once]);
 
+  const play = variant === "blur-up" || variant === "image-in" ? "fade-up" : variant;
+
   return (
     <div
       ref={ref}
-      className={`reveal reveal-${variant} ${visible ? "is-visible" : ""} ${className}`}
+      className={`reveal reveal-${play} ${ready ? "is-ready" : ""} ${visible ? "is-visible" : ""} ${className}`}
       style={{
-        transitionDelay: `${delay}ms`,
+        transitionDelay: `${Math.min(delay, 140)}ms`,
         transitionDuration: `${duration}ms`,
       }}
     >

@@ -45,6 +45,7 @@ export default function HowItWorks() {
           />
         </div>
 
+        <Reveal variant="fade-up">
         <div className="mb-8 grid gap-3 md:grid-cols-3">
           {howItWorks.map((step, i) => {
             const isActive = active === i;
@@ -83,8 +84,9 @@ export default function HowItWorks() {
             );
           })}
         </div>
+        </Reveal>
 
-        <Reveal delay={120} variant="scale-in">
+        <Reveal delay={80} variant="scale-in">
           <div className="group relative overflow-hidden rounded-2xl">
             <div className="relative min-h-[280px] md:min-h-[460px]">
               <Image

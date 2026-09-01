@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { brand, media } from "@/lib/content";
-import { motion } from "@/components/Motion";
 
 export default function HeroTreatments() {
   return (
@@ -22,50 +21,34 @@ export default function HeroTreatments() {
 
       <div className="site-inner relative flex min-h-svh flex-col justify-center pb-16 pt-28 md:pb-20">
         <div className="max-w-[620px]">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.55 }}
-            className="mb-5 flex items-center gap-3"
+          <div
+            className="hero-enter mb-5 flex items-center gap-3"
+            style={{ animationDelay: "0.04s" }}
           >
             <span className="h-px w-8 bg-ppc-accent-soft" />
             <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-white">
               {brand.name}
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.65, delay: 0.08 }}
-          >
+          <div className="hero-enter" style={{ animationDelay: "0.1s" }}>
             <h1 className="font-display text-[40px] font-semibold leading-[1.05] tracking-[-0.03em] text-white md:text-[64px] lg:text-[72px]">
               Private care.
               <br />
               Practical plans.
             </h1>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6, delay: 0.16 }}
-          >
+          <div className="hero-enter" style={{ animationDelay: "0.16s" }}>
             <p className="mt-5 max-w-[480px] text-[16px] leading-relaxed text-white md:text-[18px]">
               Licensed clinicians, personalized plans, and discreet delivery —
               without the waiting room.
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.55, delay: 0.2 }}
-            className="mt-7 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:gap-x-6 sm:gap-y-2"
+          <div
+            className="hero-enter mt-7 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:gap-x-6 sm:gap-y-2"
+            style={{ animationDelay: "0.22s" }}
           >
             {[
               "Personalized treatment plans",
@@ -85,15 +68,9 @@ export default function HeroTreatments() {
                 {item}
               </p>
             ))}
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.55, delay: 0.28 }}
-            className="mt-8"
-          >
+          <div className="hero-enter mt-8" style={{ animationDelay: "0.28s" }}>
             <Link
               href="/treatments"
               className="motion-press inline-flex items-center gap-2 rounded-full bg-ppc-accent px-7 py-3.5 text-[13px] font-semibold uppercase tracking-[0.12em] text-white hover:bg-ppc-dark"
@@ -101,7 +78,7 @@ export default function HeroTreatments() {
               Explore care
               <span aria-hidden>→</span>
             </Link>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

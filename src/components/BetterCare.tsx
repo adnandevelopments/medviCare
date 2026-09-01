@@ -66,6 +66,7 @@ export default function BetterCare() {
         </Reveal>
 
         {tab === "paths" ? (
+          <Reveal variant="rise">
           <div className="grid auto-rows-fr gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
             {treatments.map((item) => (
               <Link
@@ -107,7 +108,9 @@ export default function BetterCare() {
               </Link>
             ))}
           </div>
+          </Reveal>
         ) : (
+          <Reveal variant="rise">
           <div className="rounded-3xl bg-ppc-mint/80 p-4 md:p-8">
             <div className="grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
               {meds.map((med) => (
@@ -142,6 +145,7 @@ export default function BetterCare() {
               ))}
             </div>
           </div>
+          </Reveal>
         )}
 
         <Reveal delay={80} className="mt-10">
@@ -154,7 +158,8 @@ export default function BetterCare() {
           </Link>
         </Reveal>
 
-        <div className="mt-14 grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <Reveal variant="fade-up" className="mt-14">
+        <div className="grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {trustItems.map((item) => (
             <div
               key={item}
@@ -172,6 +177,7 @@ export default function BetterCare() {
               </div>
           ))}
         </div>
+        </Reveal>
       </div>
     </section>
   );

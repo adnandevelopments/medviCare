@@ -30,10 +30,10 @@ export default function Team() {
           </Reveal>
         </div>
 
+        <Reveal variant="fade-up">
         <div className="mb-12 grid gap-px overflow-hidden rounded-2xl border border-ppc-border bg-ppc-border md:mb-14 md:grid-cols-3">
           {expertPoints.map((point, i) => (
-            <Reveal key={point.title} delay={90 + i * 80} variant="rise">
-              <div className="h-full bg-white p-6 md:p-8">
+              <div key={point.title} className="h-full bg-white p-6 md:p-8">
                 <p className="mb-4 font-display text-[13px] font-semibold tracking-[0.14em] text-ppc-accent">
                   {String(i + 1).padStart(2, "0")}
                 </p>
@@ -44,9 +44,9 @@ export default function Team() {
                   {point.description}
                 </p>
               </div>
-            </Reveal>
           ))}
         </div>
+        </Reveal>
 
         <TeamCarousel people={clinicians} />
 

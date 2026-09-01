@@ -58,12 +58,12 @@ export default function FAQ() {
         </div>
 
         <div>
+          <Reveal variant="fade-up">
           <div className="divide-y divide-ppc-border border-y border-ppc-border">
           {faqs.map((item, i) => {
             const isOpen = open === i;
             return (
-              <Reveal key={item.q} delay={80 + i * 50}>
-                <div>
+                <div key={item.q}>
                   <button
                     type="button"
                     className="flex w-full items-start justify-between gap-4 py-5 text-left md:py-6"
@@ -96,10 +96,10 @@ export default function FAQ() {
                     </div>
                   </div>
                 </div>
-              </Reveal>
             );
           })}
-        </div>
+          </div>
+          </Reveal>
 
         <div className="mt-8 rounded-2xl border border-ppc-border bg-ppc-mint px-5 py-5 md:mt-10 md:px-6">
           <p className="text-[16px] font-medium text-ppc-primary md:text-[18px]">

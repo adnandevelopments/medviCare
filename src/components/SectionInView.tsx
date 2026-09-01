@@ -19,20 +19,20 @@ export default function SectionInView({
 }: SectionInViewProps) {
   const initial =
     from === "left"
-      ? { opacity: 0, x: -70, y: 0, scale: 1 }
+      ? { opacity: 0, x: -18, y: 0, scale: 1 }
       : from === "right"
-        ? { opacity: 0, x: 70, y: 0, scale: 1 }
+        ? { opacity: 0, x: 18, y: 0, scale: 1 }
         : from === "scale"
-          ? { opacity: 0, x: 0, y: 24, scale: 0.96 }
-          : { opacity: 0, x: 0, y: 48, scale: 1 };
+          ? { opacity: 0, x: 0, y: 12, scale: 0.98 }
+          : { opacity: 0, x: 0, y: 18, scale: 1 };
 
   return (
     <motion.div
       className={className}
       initial={initial}
       whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
-      viewport={{ once: true, amount: 0.18 }}
-      transition={{ duration: 0.7, delay }}
+      viewport={{ once: true, amount: 0.12 }}
+      transition={{ duration: 0.45, delay: Math.min(delay, 0.12) }}
     >
       {children}
     </motion.div>

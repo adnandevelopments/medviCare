@@ -21,54 +21,58 @@ function MotionDiv({
   children,
   className = "",
   style,
-  initial = { opacity: 0, x: 0 },
-  whileInView = { opacity: 1, x: 0 },
-  transition = { duration: 0.5, delay: 0 },
+  initial = { opacity: 0, y: 16 },
+  whileInView = { opacity: 1, x: 0, y: 0, scale: 1 },
+  transition = { duration: 0.45, delay: 0 },
   viewport = { once: true, amount: 0.12 },
   ...rest
 }: MotionDivProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(true);
-  const [skipAnim, setSkipAnim] = useState(true);
+  const [skip, setSkip] = useState(false);
 
   useEffect(() => {
-    const mobile = window.matchMedia("(max-width: 767px)").matches;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (mobile || reduce) {
-      setSkipAnim(true);
+    if (reduce) {
+      setSkip(true);
       setVisible(true);
       return;
     }
 
-    setSkipAnim(false);
     const el = ref.current;
     if (!el) return;
+
+    const inView = el.getBoundingClientRect().top < window.innerHeight * 0.92;
+    if (inView) {
+      setVisible(true);
+      return;
+    }
+
+    setVisible(false);
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true);
           if (viewport.once !== false) observer.unobserve(el);
-        } else if (viewport.once === false) {
-          setVisible(false);
         }
       },
-      {
-        threshold: 0.05,
-        rootMargin: "120px 0px",
-      },
+      { threshold: 0.08, rootMargin: "0px 0px -6% 0px" },
     );
-
-    const rect = el.getBoundingClientRect();
-    if (rect.top > window.innerHeight * 0.95) setVisible(false);
 
     observer.observe(el);
     return () => observer.disconnect();
   }, [viewport.once]);
 
-  const from = skipAnim || visible ? whileInView : initial;
-  const duration = skipAnim ? 0 : (transition.duration ?? 0.5);
-  const delay = skipAnim ? 0 : (transition.delay ?? 0);
+  const shown = skip || visible;
+  const from = shown ? whileInView : {
+    opacity: initial.opacity ?? 0,
+    x: 0,
+    y: Math.min(Math.abs(initial.y ?? 16), 20),
+    scale: 1,
+  };
+  const duration = skip ? 0 : Math.min(transition.duration ?? 0.45, 0.55);
+  const delay = skip ? 0 : Math.min(transition.delay ?? 0, 0.16);
 
   const motionStyle: CSSProperties = {
     ...style,
