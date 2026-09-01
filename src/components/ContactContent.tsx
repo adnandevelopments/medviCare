@@ -155,8 +155,8 @@ export default function ContactContent() {
   return (
     <>
       <section className="border-b border-ppc-border bg-ppc-mint py-6 md:py-7">
-        <div className="site-inner flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-3">
+        <div className="site-inner flex min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-5">
+          <div className="flex min-w-0 items-start gap-3 sm:items-center">
             <span
               className={`relative flex h-2.5 w-2.5 ${
                 deskOpen ? "text-emerald-500" : "text-ppc-accent"
@@ -166,7 +166,7 @@ export default function ContactContent() {
               <span className="absolute inset-0 animate-ping rounded-full bg-current opacity-40" />
               <span className="relative h-2.5 w-2.5 rounded-full bg-current" />
             </span>
-            <p className="text-[14px] font-medium text-ppc-primary">
+            <p className="min-w-0 text-[14px] font-medium text-ppc-primary">
               {deskOpen == null
                 ? "Checking support hours…"
                 : deskOpen
@@ -174,15 +174,15 @@ export default function ContactContent() {
                   : "We’re away right now. Messages wait in queue until 9am ET."}
             </p>
           </div>
-          <p className="text-[13px] text-ppc-primary/70">
+          <p className="shrink-0 text-[13px] text-ppc-primary/70">
             Mon–Fri, 9am–6pm ET · Privacy-minded handling
           </p>
         </div>
       </section>
 
-      <section className="site-section">
-        <div className="site-inner grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-          <div>
+      <section className="site-section overflow-x-clip">
+        <div className="site-inner grid min-w-0 gap-10 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] xl:items-start xl:gap-12">
+          <div className="min-w-0 w-full">
             <Reveal>
               <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.16em] text-ppc-accent">
                 Reach us
@@ -192,7 +192,7 @@ export default function ContactContent() {
               </h2>
               <p className="mt-3 max-w-md text-[15px] leading-relaxed text-ppc-primary/80">
                 Tap an email to open your mail app. Prefer a form? Use the
-                message box on the right.
+                message box below, or on the right on larger screens.
               </p>
             </Reveal>
 
@@ -229,12 +229,14 @@ export default function ContactContent() {
             </div>
           </div>
 
-          <Reveal delay={80} variant="slide-right">
-            <ContactForm
-              topic={topic}
-              onTopicChange={(id) => setTopic(id)}
-            />
-          </Reveal>
+          <div className="min-w-0 w-full">
+            <Reveal delay={80} variant="fade-up" className="block w-full min-w-0">
+              <ContactForm
+                topic={topic}
+                onTopicChange={(id) => setTopic(id)}
+              />
+            </Reveal>
+          </div>
         </div>
       </section>
 

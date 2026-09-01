@@ -20,10 +20,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       data-theme={DEFAULT_THEME}
       suppressHydrationWarning
     >
-      <body className="flex min-h-full flex-col bg-background text-foreground">
+      <body className="flex min-h-full min-w-0 flex-col overflow-x-clip bg-background text-foreground">
         <CartProvider>
           <Header />
-          <main className="flex-1 pt-[72px]">{children}</main>
+          <main className="min-w-0 flex-1 overflow-x-clip pt-[72px]">{children}</main>
           <Footer />
           <CartDrawer />
         </CartProvider>

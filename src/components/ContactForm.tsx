@@ -102,14 +102,14 @@ function PhoneField({
   }, [open]);
 
   return (
-    <div ref={wrapRef} className="relative">
-      <div className="flex overflow-hidden rounded-xl border border-ppc-border bg-background transition-all focus-within:border-ppc-accent focus-within:ring-4 focus-within:ring-ppc-accent/15 hover:border-ppc-accent/70">
+    <div ref={wrapRef} className="relative w-full min-w-0">
+      <div className="flex min-w-0 overflow-hidden rounded-xl border border-ppc-border bg-background transition-all focus-within:border-ppc-accent focus-within:ring-4 focus-within:ring-ppc-accent/15 hover:border-ppc-accent/70">
         <button
           type="button"
           aria-label="Country code"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="flex shrink-0 items-center gap-2 border-r border-ppc-border px-3 py-3 text-sm text-ppc-primary hover:bg-ppc-mint"
+          className="flex shrink-0 items-center gap-1.5 border-r border-ppc-border px-2.5 py-3 text-sm text-ppc-primary hover:bg-ppc-mint sm:gap-2 sm:px-3"
         >
           <Flag iso={selected.iso} />
           <span className="font-medium">{selected.dial}</span>
@@ -131,7 +131,7 @@ function PhoneField({
           value={phone}
           onChange={(e) => onPhoneChange(e.target.value.replace(/[^\d\s()-]/g, ""))}
           placeholder="416 555 0123"
-          className="min-w-0 flex-1 bg-transparent px-4 py-3 text-sm text-ppc-primary outline-none placeholder:text-ppc-primary/35"
+          className="min-w-0 flex-1 bg-transparent px-3 py-3 text-sm text-ppc-primary outline-none placeholder:text-ppc-primary/35 sm:px-4"
         />
       </div>
       <input type="hidden" name="phoneCountry" value={`${selected.iso}:${selected.dial}`} />
@@ -168,7 +168,7 @@ function PhoneField({
 }
 
 const fieldClass =
-  "w-full rounded-xl border bg-background px-4 py-3 text-sm text-ppc-primary outline-none transition-all placeholder:text-ppc-primary/35 hover:border-ppc-accent/70 focus:border-ppc-accent focus:ring-4 focus:ring-ppc-accent/15";
+  "w-full min-w-0 max-w-full rounded-xl border bg-background px-3 py-3 text-sm text-ppc-primary outline-none transition-all placeholder:text-ppc-primary/35 hover:border-ppc-accent/70 focus:border-ppc-accent focus:ring-4 focus:ring-ppc-accent/15 sm:px-4";
 
 function fieldBorder(error?: string) {
   return error ? "border-red-400/80" : "border-ppc-border";
@@ -248,7 +248,7 @@ export default function ContactForm({
     return (
       <div
         id="contact-form"
-        className="scroll-mt-[88px] rounded-2xl border border-ppc-accent/30 bg-ppc-surface p-6 shadow-[0_16px_40px_-28px_rgba(18,26,56,0.35)] md:p-10"
+        className="scroll-mt-[88px] w-full min-w-0 max-w-full rounded-2xl border border-ppc-accent/30 bg-ppc-surface p-4 shadow-[0_16px_40px_-28px_rgba(18,26,56,0.35)] sm:p-6 md:p-8"
       >
         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-ppc-accent text-white">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -298,7 +298,7 @@ export default function ContactForm({
   return (
     <form
       id="contact-form"
-      className="scroll-mt-[88px] space-y-5 rounded-2xl border border-ppc-border bg-ppc-surface p-6 shadow-[0_16px_40px_-28px_rgba(18,26,56,0.35)] md:p-10"
+      className="@container scroll-mt-[88px] w-full min-w-0 max-w-full space-y-5 overflow-x-clip rounded-2xl border border-ppc-border bg-ppc-surface p-4 shadow-[0_16px_40px_-28px_rgba(18,26,56,0.35)] sm:p-6 md:p-8"
       onSubmit={onSubmit}
       noValidate
     >
@@ -315,7 +315,7 @@ export default function ContactForm({
         <legend className="mb-2.5 block text-[12px] font-medium text-ppc-primary/80">
           Topic
         </legend>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex max-w-full flex-wrap gap-2">
           {CONTACT_TOPICS.map((item) => {
             const on = activeTopic === item.id;
             return (
@@ -343,8 +343,8 @@ export default function ContactForm({
         ) : null}
       </fieldset>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <label className="block">
+      <div className="grid gap-4 @min-[420px]:grid-cols-2">
+        <label className="block min-w-0">
           <span className="mb-1.5 block text-[12px] font-medium text-ppc-primary/80">
             Full name
           </span>
@@ -362,7 +362,7 @@ export default function ContactForm({
             <p className="mt-1.5 text-[12px] text-red-600">{errors.name}</p>
           ) : null}
         </label>
-        <label className="block">
+        <label className="block min-w-0">
           <span className="mb-1.5 block text-[12px] font-medium text-ppc-primary/80">
             Email
           </span>
@@ -382,8 +382,8 @@ export default function ContactForm({
         </label>
       </div>
 
-      <div className={`grid gap-4 ${showOrder ? "sm:grid-cols-2" : ""}`}>
-        <label className="block">
+      <div className={`grid min-w-0 gap-4 ${showOrder ? "@min-[420px]:grid-cols-2" : ""}`}>
+        <label className="block min-w-0">
           <span className="mb-1.5 block text-[12px] font-medium text-ppc-primary/80">
             Phone <span className="font-normal text-ppc-primary/50">(optional)</span>
           </span>
