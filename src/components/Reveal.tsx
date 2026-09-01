@@ -26,15 +26,23 @@ export default function Reveal({
   className = "",
   variant = "fade-up",
   delay = 0,
-  duration = 800,
-  once = false,
+  duration = 500,
+  once = true,
 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  /** Visible on first paint so mobile never sits on a blank white block. */
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    const mobile = window.matchMedia("(max-width: 767px)").matches;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (mobile || reduce) {
+      setVisible(true);
+      return;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -45,8 +53,11 @@ export default function Reveal({
           setVisible(false);
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+      { threshold: 0.05, rootMargin: "120px 0px" },
     );
+
+    const rect = el.getBoundingClientRect();
+    if (rect.top > window.innerHeight * 0.95) setVisible(false);
 
     observer.observe(el);
     return () => observer.disconnect();

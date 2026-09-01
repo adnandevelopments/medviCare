@@ -15,6 +15,7 @@ export default function HeroTreatments() {
         priority
         className="object-cover object-[78%_center] md:object-[70%_center]"
         sizes="100vw"
+        quality={70}
       />
       <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-transparent" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/25" />

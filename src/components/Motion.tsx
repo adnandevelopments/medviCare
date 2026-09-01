@@ -23,23 +23,24 @@ function MotionDiv({
   style,
   initial = { opacity: 0, x: 0 },
   whileInView = { opacity: 1, x: 0 },
-  transition = { duration: 0.7, delay: 0 },
-  viewport = { once: false, amount: 0.25 },
+  transition = { duration: 0.5, delay: 0 },
+  viewport = { once: true, amount: 0.12 },
   ...rest
 }: MotionDivProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  const [reduceMotion, setReduceMotion] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const [skipAnim, setSkipAnim] = useState(true);
 
   useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduceMotion(mq.matches);
-    const onChange = () => setReduceMotion(mq.matches);
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
+    const mobile = window.matchMedia("(max-width: 767px)").matches;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (mobile || reduce) {
+      setSkipAnim(true);
+      setVisible(true);
+      return;
+    }
 
-  useEffect(() => {
+    setSkipAnim(false);
     const el = ref.current;
     if (!el) return;
 
@@ -47,24 +48,27 @@ function MotionDiv({
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true);
-          if (viewport.once) observer.unobserve(el);
-        } else if (!viewport.once) {
+          if (viewport.once !== false) observer.unobserve(el);
+        } else if (viewport.once === false) {
           setVisible(false);
         }
       },
       {
-        threshold: viewport.amount ?? 0.3,
-        rootMargin: "0px 0px -8% 0px",
+        threshold: 0.05,
+        rootMargin: "120px 0px",
       },
     );
 
+    const rect = el.getBoundingClientRect();
+    if (rect.top > window.innerHeight * 0.95) setVisible(false);
+
     observer.observe(el);
     return () => observer.disconnect();
-  }, [viewport.amount, viewport.once]);
+  }, [viewport.once]);
 
-  const from = reduceMotion ? whileInView : visible ? whileInView : initial;
-  const duration = reduceMotion ? 0 : (transition.duration ?? 0.7);
-  const delay = reduceMotion ? 0 : (transition.delay ?? 0);
+  const from = skipAnim || visible ? whileInView : initial;
+  const duration = skipAnim ? 0 : (transition.duration ?? 0.5);
+  const delay = skipAnim ? 0 : (transition.delay ?? 0);
 
   const motionStyle: CSSProperties = {
     ...style,
@@ -74,7 +78,6 @@ function MotionDiv({
     transitionDuration: `${duration}s`,
     transitionDelay: `${delay}s`,
     transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
-    willChange: reduceMotion || visible ? "auto" : "opacity, transform",
   };
 
   return (

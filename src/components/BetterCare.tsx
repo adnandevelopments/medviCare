@@ -67,85 +67,78 @@ export default function BetterCare() {
 
         {tab === "paths" ? (
           <div className="grid auto-rows-fr gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-            {treatments.map((item, i) => (
-              <Reveal
+            {treatments.map((item) => (
+              <Link
                 key={`${item.title}-${item.accent}`}
-                delay={40 + i * 45}
-                variant="rise"
-                className="h-full"
+                href={item.href}
+                className="motion-card group flex h-full min-h-[300px] flex-col overflow-hidden rounded-2xl border-2 border-ppc-accent/40 bg-ppc-surface transition-all hover:-translate-y-1 hover:border-ppc-accent hover:shadow-[0_18px_40px_-18px_rgba(61,82,160,0.45)]"
               >
-                <Link
-                  href={item.href}
-                  className="motion-card group flex h-full min-h-[300px] flex-col overflow-hidden rounded-2xl border-2 border-ppc-accent/40 bg-ppc-surface transition-all hover:-translate-y-1 hover:border-ppc-accent hover:shadow-[0_18px_40px_-18px_rgba(61,82,160,0.45)]"
-                >
-                  <div className="relative h-[200px] shrink-0 overflow-hidden bg-ppc-mint">
-                    <Image
-                      src={`${item.image}?v=${media.cutoutVersion}`}
-                      alt={`${item.title} ${item.accent}`}
-                      fill
-                      className="object-contain object-center p-3 transition-transform duration-700 group-hover:scale-105"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      unoptimized
-                    />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ppc-surface via-ppc-accent/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                  </div>
-                  <div className="flex flex-1 flex-col p-5 md:p-6">
-                    <h3 className="font-helvetica-display text-[20px] font-medium leading-tight tracking-[-0.02em] text-ppc-primary md:text-[22px]">
-                      {item.title}{" "}
-                      <span className="text-ppc-accent">{item.accent}</span>
-                    </h3>
-                    <p className="mt-2 flex-1 text-[13px] leading-relaxed text-ppc-primary/78 line-clamp-3 md:text-[14px]">
-                      {item.summary}
-                    </p>
-                    <span className="mt-4 inline-flex items-center gap-2 border-t border-ppc-accent/25 pt-4 text-[13px] font-medium text-ppc-accent">
-                      <span className="transition-all duration-300 group-hover:translate-x-0.5">
-                        Explore
-                      </span>
-                      <span
-                        aria-hidden
-                        className="transition-all duration-300 group-hover:translate-x-1.5 group-hover:scale-110"
-                      >
-                        →
-                      </span>
+                <div className="relative h-[200px] shrink-0 overflow-hidden bg-ppc-mint">
+                  <Image
+                    src={`${item.image}?v=${media.cutoutVersion}`}
+                    alt={`${item.title} ${item.accent}`}
+                    fill
+                    className="object-contain object-center p-3 transition-transform duration-700 group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    unoptimized
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ppc-surface via-ppc-accent/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                </div>
+                <div className="flex flex-1 flex-col p-5 md:p-6">
+                  <h3 className="font-helvetica-display text-[20px] font-medium leading-tight tracking-[-0.02em] text-ppc-primary md:text-[22px]">
+                    {item.title}{" "}
+                    <span className="text-ppc-accent">{item.accent}</span>
+                  </h3>
+                  <p className="mt-2 flex-1 text-[13px] leading-relaxed text-ppc-primary/78 line-clamp-3 md:text-[14px]">
+                    {item.summary}
+                  </p>
+                  <span className="mt-4 inline-flex items-center gap-2 border-t border-ppc-accent/25 pt-4 text-[13px] font-medium text-ppc-accent">
+                    <span className="transition-all duration-300 group-hover:translate-x-0.5">
+                      Explore
                     </span>
-                  </div>
-                </Link>
-              </Reveal>
+                    <span
+                      aria-hidden
+                      className="transition-all duration-300 group-hover:translate-x-1.5 group-hover:scale-110"
+                    >
+                      →
+                    </span>
+                  </span>
+                </div>
+              </Link>
             ))}
           </div>
         ) : (
           <div className="rounded-3xl bg-ppc-mint/80 p-4 md:p-8">
             <div className="grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
-              {meds.map((med, i) => (
-                <Reveal key={med.name} delay={40 + i * 40} variant="scale-in" className="h-full">
-                  <Link
-                    href={med.href}
-                    className="motion-card group flex h-full flex-col overflow-hidden rounded-2xl border border-ppc-border bg-white transition-all hover:-translate-y-1 hover:border-ppc-accent hover:shadow-[0_18px_40px_-18px_rgba(61,82,160,0.45)]"
-                  >
-                    <div className="relative h-[148px] shrink-0 overflow-hidden bg-white md:h-[160px]">
-                      <Image
-                        src={`${med.image}?v=${media.cutoutVersion}`}
-                        alt={med.name}
-                        fill
-                        className="object-contain object-center p-5 transition-transform duration-700 group-hover:scale-105"
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        unoptimized
-                      />
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white via-ppc-accent/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                    </div>
-                    <div className="flex flex-1 flex-col px-5 pb-5 pt-1">
-                      <span className="block text-[17px] font-medium leading-snug text-ppc-primary md:text-[19px]">
-                        {med.name}
-                      </span>
-                      <span className="mt-2 flex-1 text-[12px] leading-relaxed text-ppc-primary/75 line-clamp-2 md:text-[13px]">
-                        {med.blurb}
-                      </span>
-                      <span className="mt-4 inline-flex items-center gap-1 border-t border-ppc-accent/25 pt-4 text-[13px] font-medium text-ppc-accent transition-transform group-hover:translate-x-1">
-                        Learn more →
-                      </span>
-                    </div>
-                  </Link>
-                </Reveal>
+              {meds.map((med) => (
+                <Link
+                  key={med.name}
+                  href={med.href}
+                  className="motion-card group flex h-full flex-col overflow-hidden rounded-2xl border border-ppc-border bg-white transition-all hover:-translate-y-1 hover:border-ppc-accent hover:shadow-[0_18px_40px_-18px_rgba(61,82,160,0.45)]"
+                >
+                  <div className="relative h-[148px] shrink-0 overflow-hidden bg-white md:h-[160px]">
+                    <Image
+                      src={`${med.image}?v=${media.cutoutVersion}`}
+                      alt={med.name}
+                      fill
+                      className="object-contain object-center p-5 transition-transform duration-700 group-hover:scale-105"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      unoptimized
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white via-ppc-accent/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  </div>
+                  <div className="flex flex-1 flex-col px-5 pb-5 pt-1">
+                    <span className="block text-[17px] font-medium leading-snug text-ppc-primary md:text-[19px]">
+                      {med.name}
+                    </span>
+                    <span className="mt-2 flex-1 text-[12px] leading-relaxed text-ppc-primary/75 line-clamp-2 md:text-[13px]">
+                      {med.blurb}
+                    </span>
+                    <span className="mt-4 inline-flex items-center gap-1 border-t border-ppc-accent/25 pt-4 text-[13px] font-medium text-ppc-accent transition-transform group-hover:translate-x-1">
+                      Learn more →
+                    </span>
+                  </div>
+                </Link>
               ))}
             </div>
           </div>
@@ -162,9 +155,11 @@ export default function BetterCare() {
         </Reveal>
 
         <div className="mt-14 grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {trustItems.map((item, i) => (
-            <Reveal key={item} delay={60 + i * 50} variant="fade-up" className="h-full">
-              <div className="flex h-full min-h-[72px] items-center gap-3 rounded-2xl border-2 border-ppc-accent/30 bg-ppc-mint/70 px-4 py-4">
+          {trustItems.map((item) => (
+            <div
+              key={item}
+              className="flex h-full min-h-[72px] items-center gap-3 rounded-2xl border-2 border-ppc-accent/30 bg-ppc-mint/70 px-4 py-4"
+            >
                 <span
                   className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-ppc-accent/15 text-[12px] font-semibold text-ppc-accent"
                   aria-hidden
@@ -175,7 +170,6 @@ export default function BetterCare() {
                   {item}
                 </p>
               </div>
-            </Reveal>
           ))}
         </div>
       </div>
