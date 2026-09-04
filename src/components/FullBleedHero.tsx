@@ -9,6 +9,7 @@ export default function FullBleedHero({
   className = "",
   underHeader = false,
   compact = false,
+  imageAlt = "",
 }: {
   image?: string;
   children: ReactNode;
@@ -18,6 +19,7 @@ export default function FullBleedHero({
   underHeader?: boolean;
   /** Short banner for care-path / catalog pages */
   compact?: boolean;
+  imageAlt?: string;
 }) {
   const heightClass = compact
     ? underHeader
@@ -36,7 +38,7 @@ export default function FullBleedHero({
           <>
             <Image
               src={image}
-              alt=""
+              alt={imageAlt || ""}
               fill
               className="object-cover object-center"
               sizes="100vw"

@@ -6,28 +6,10 @@ import UsageGuide from "@/components/UsageGuide";
 import {
   getProductsByCategories,
   getTreatment,
-  media,
 } from "@/lib/content";
 import { getProductDetail } from "@/lib/productDetails";
+import { heroForTreatment, notesForTreatment } from "@/lib/pageStories";
 import { notFound } from "next/navigation";
-
-const heroBySlug: Record<string, string> = {
-  "weight-loss": media.pageHeroes.treatments,
-  "hair-loss": media.pageHeroes.treatments,
-  skin: media.pageHeroes.skin,
-  longevity: media.pageHeroes.longevity,
-  "sexual-health": media.pageHeroes.treatments,
-  "mental-health": media.pageHeroes.mental,
-  "quit-smoking": media.pageHeroes.habit,
-};
-
-const reviewPhotos = [
-  "/images/team-maya.png",
-  "/images/team-chris.png",
-  "/images/team-nora.png",
-  "/images/patients-care.png",
-  "/images/team-elena.png",
-];
 
 export default function CarePathPage({ slug }: { slug: string }) {
   const treatment = getTreatment(slug);
@@ -49,18 +31,7 @@ export default function CarePathPage({ slug }: { slug: string }) {
     ];
   });
 
-  const reviews = categoryProducts
-    .flatMap((product) => getProductDetail(product.slug)?.testimonials ?? [])
-    .filter(
-      (item, i, arr) => arr.findIndex((other) => other.name === item.name) === i,
-    )
-    .slice(0, 3)
-    .map((item, i) => ({
-      name: item.name,
-      quote: item.quote,
-      meta: item.condition,
-      image: reviewPhotos[i % reviewPhotos.length],
-    }));
+  const reviews = notesForTreatment(slug);
 
   return (
     <>
@@ -69,7 +40,7 @@ export default function CarePathPage({ slug }: { slug: string }) {
         eyebrow="Care path"
         title={`${treatment.title} ${treatment.accent}`}
         description={treatment.summary}
-        image={heroBySlug[slug] ?? media.pageHeroes.treatments}
+        image={heroForTreatment(slug)}
         cta={{ label: "See options", href: "#options" }}
         extraCta={<CarePathQuiz slug={slug} />}
       />

@@ -15,7 +15,7 @@ export default function HowItWorks() {
   };
 
   return (
-    <section id="how-it-works" className="site-section bg-ppc-dark text-white">
+    <section id="how-it-works" className="site-section scroll-mt-[88px] bg-ppc-dark text-white">
       <div className="site-inner">
         <div className="mb-10 grid gap-6 md:mb-12 md:grid-cols-[1.2fr_0.8fr] md:items-end">
           <div>
@@ -54,7 +54,6 @@ export default function HowItWorks() {
                 key={step.step}
                 type="button"
                 onClick={() => setActive(i)}
-                onMouseEnter={() => setActive(i)}
                 className={`rounded-2xl border px-5 py-5 text-left transition-all duration-300 ${
                   isActive
                     ? "border-ppc-accent/60 bg-white/10 shadow-[0_16px_40px_-24px_rgba(92,126,232,0.8)]"
@@ -160,7 +159,7 @@ export default function HowItWorks() {
                 >
                   <Image
                     src={step.image}
-                    alt=""
+                    alt={step.title}
                     fill
                     className="object-cover"
                     sizes="200px"

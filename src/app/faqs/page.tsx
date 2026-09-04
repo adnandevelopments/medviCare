@@ -32,8 +32,9 @@ export default function FaqsPage() {
                 <div key={item.q}>
                   <button
                     type="button"
-                    className="flex w-full items-start justify-between gap-4 py-5 text-left"
+                    className="flex min-h-11 w-full items-start justify-between gap-4 py-5 text-left"
                     onClick={() => setOpen(isOpen ? null : i)}
+                    aria-expanded={isOpen}
                   >
                     <span className="text-[16px] font-medium text-ppc-primary md:text-[18px]">
                       {item.q}
@@ -60,8 +61,9 @@ export default function FaqsPage() {
                 <div key={item.q}>
                   <button
                     type="button"
-                    className="flex w-full items-start justify-between gap-4 py-5 text-left"
+                    className="flex min-h-11 w-full items-start justify-between gap-4 py-5 text-left"
                     onClick={() => setProductOpen(isOpen ? null : i)}
+                    aria-expanded={isOpen}
                   >
                     <span className="text-[16px] font-medium text-ppc-primary md:text-[18px]">
                       {item.q}

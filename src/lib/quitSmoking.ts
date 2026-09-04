@@ -1,4 +1,4 @@
-/** Quit smoking / ZONNIC PDP (reference: myrocky.ca/product/zonnic). */
+/** Quit smoking / ZONNIC product content. */
 export const quitSmoking = {
   product: {
     title: "ZONNIC Nicotine Pouches",

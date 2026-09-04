@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { useCart } from "@/components/CartProvider";
-import { hairLoss, media } from "@/lib/content";
+import { hairLoss } from "@/lib/content";
 
 type HairIcon = "receding" | "crown" | "overall" | "full";
 
@@ -26,7 +26,6 @@ type Step =
       id: "birthday";
       question: string;
     }
-  | { kind: "blocked"; id: "blocked" }
   | { kind: "result"; id: "result" };
 
 const steps: Step[] = [
@@ -194,7 +193,6 @@ export default function HairLossQuiz({
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [birthday, setBirthday] = useState("");
   const [birthdayError, setBirthdayError] = useState("");
-  const [blocked, setBlocked] = useState(false);
 
   useEffect(() => {
     if (!open) return;
@@ -202,7 +200,6 @@ export default function HairLossQuiz({
     setAnswers({});
     setBirthday("");
     setBirthdayError("");
-    setBlocked(false);
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
@@ -214,15 +211,12 @@ export default function HairLossQuiz({
     };
   }, [open, onClose]);
 
-  const step = blocked
-    ? ({ kind: "blocked", id: "blocked" } as const)
-    : steps[stepIndex];
+  const step = steps[stepIndex];
 
   const progress = useMemo(() => {
-    if (blocked) return Math.round(((stepIndex + 1) / TOTAL_PROGRESS_STEPS) * 100);
     if (step.kind === "result") return 100;
     return Math.round(((stepIndex + 1) / TOTAL_PROGRESS_STEPS) * 100);
-  }, [blocked, step, stepIndex]);
+  }, [step, stepIndex]);
 
   if (!open) return null;
 
@@ -230,13 +224,6 @@ export default function HairLossQuiz({
 
   const pick = (choiceId: string) => {
     if (step.kind !== "question") return;
-
-    if (step.id === "gender" && choiceId === "female") {
-      setAnswers((prev) => ({ ...prev, gender: "female" }));
-      setBlocked(true);
-      return;
-    }
-
     setAnswers((prev) => ({ ...prev, [step.id]: choiceId }));
     window.setTimeout(goNext, 160);
   };
@@ -257,10 +244,6 @@ export default function HairLossQuiz({
   };
 
   const goBack = () => {
-    if (blocked) {
-      setBlocked(false);
-      return;
-    }
     if (stepIndex === 0) {
       onClose();
       return;
@@ -298,7 +281,7 @@ export default function HairLossQuiz({
           <button
             type="button"
             onClick={onClose}
-            className="absolute right-0 text-[13px] font-medium text-ppc-primary/72 hover:text-ppc-primary"
+            className="absolute right-0 inline-flex min-h-11 items-center text-[13px] font-medium text-ppc-primary/72 hover:text-ppc-primary"
           >
             Close
           </button>
@@ -403,38 +386,6 @@ export default function HairLossQuiz({
           </>
         ) : null}
 
-        {step.kind === "blocked" ? (
-          <div className="rounded-2xl border border-ppc-border bg-ppc-surface p-6 md:p-8">
-            <p className="mb-2 text-[12px] font-semibold uppercase tracking-[0.14em] text-ppc-accent">
-              Eligibility
-            </p>
-            <h1 className="font-display text-[28px] font-[400] leading-tight text-ppc-primary md:text-[32px]">
-              Sorry — we recommend treatment for men only
-            </h1>
-            <p className="mt-3 text-[15px] leading-relaxed text-ppc-primary/82">
-              This hair-loss pathway is currently designed for male pattern hair
-              loss. We’re not able to recommend this treatment for female
-              patients through this quiz.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <button
-                type="button"
-                onClick={goBack}
-                className="inline-flex items-center justify-center rounded-full bg-ppc-accent px-6 py-3.5 text-[14px] font-medium text-white hover:bg-ppc-accent-soft"
-              >
-                Choose a different option
-              </button>
-              <button
-                type="button"
-                onClick={onClose}
-                className="inline-flex items-center justify-center rounded-full border border-ppc-border px-6 py-3.5 text-[14px] font-medium text-ppc-primary hover:border-ppc-accent/40"
-              >
-                Close quiz
-              </button>
-            </div>
-          </div>
-        ) : null}
-
         {step.kind === "result" ? (
           <div className="rounded-2xl border border-ppc-border bg-ppc-surface p-6 md:p-8">
             <p className="mb-2 text-[12px] font-semibold uppercase tracking-[0.14em] text-ppc-accent">
@@ -444,20 +395,19 @@ export default function HairLossQuiz({
               We suggest {medicine.title}
             </h1>
             <p className="mt-3 text-[15px] leading-relaxed text-ppc-primary/82">
-              Based on your quiz answers, this option is a strong starting match.
-              A licensed clinician still reviews eligibility before anything is
-              prescribed.
+              Based on your quiz answers, this option is a starting match for
+              clinician review. Hair loss looks different for everyone — including
+              women — and a licensed clinician decides what is appropriate.
             </p>
 
             <div className="mt-6 overflow-hidden rounded-xl border border-ppc-border bg-ppc-mint">
               <div className="relative mx-auto aspect-square w-full max-w-[220px]">
                 <Image
-                  src={`${medicine.image}?v=${media.cutoutVersion}`}
+                  src={medicine.image}
                   alt={medicine.title}
                   fill
                   className="object-contain p-6"
                   sizes="220px"
-                  unoptimized
                 />
               </div>
               <div className="border-t border-ppc-border px-5 py-4 text-center">
@@ -479,6 +429,14 @@ export default function HairLossQuiz({
               <button
                 type="button"
                 onClick={() => {
+                  try {
+                    sessionStorage.setItem(
+                      "medvicare-quiz",
+                      `Hair-loss quiz suggestion: ${medicine.title}\nAnswers: ${JSON.stringify(answers)}`,
+                    );
+                  } catch {
+                    /* ignore */
+                  }
                   addItem({
                     id: medicine.id,
                     title: medicine.title,
@@ -507,8 +465,9 @@ export default function HairLossQuiz({
 
         <div className="mt-auto pt-10">
           <p className="text-center text-[11px] leading-relaxed text-ppc-primary/70">
-            We respect your privacy. All of your information is securely stored
-            on our PIPEDA Compliant server.
+            Quiz answers stay on this device until you choose to send them
+            through Contact. Do not use this form for emergencies — call local
+            emergency services.
           </p>
         </div>
       </div>

@@ -1,46 +1,6 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: "Fellix";
-  src: url("/fonts/Fellix_Medium.woff2") format("woff2");
-  font-weight: 400 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Fellix";
-  src: url("/fonts/Fellix_SemiBold.woff2") format("woff2");
-  font-weight: 600 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Helvetica Now Display";
-  src: url("/fonts/HelveticaNowDisplay_Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Helvetica Now Text";
-  src: url("/fonts/HelveticaNowText_Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Helvetica Now Text";
-  src: url("/fonts/HelveticaNowText_Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Site theme — Azure (royal blue + pale lavender) */
+/* Licensed webfonts are not in the repo — system stack until files are added. */
 :root,
 html[data-theme="rose"],
 html[data-theme="azure"] {
@@ -58,8 +18,8 @@ html[data-theme="azure"] {
   --bg-glow-2: rgba(92, 126, 232, 0.06);
   --bg-glow-3: rgba(173, 187, 218, 0.12);
   --selection: rgba(112, 145, 230, 0.32);
-  --font-display: "Fellix", "Helvetica Now Display", sans-serif;
-  --font-body: "Helvetica Now Text", "Fellix", sans-serif;
+  --font-display: "Segoe UI", system-ui, sans-serif;
+  --font-body: "Segoe UI", system-ui, sans-serif;
 }
 
 @theme inline {
@@ -113,12 +73,10 @@ html[data-theme="azure"] {
   from {
     opacity: 0;
     transform: translateY(28px);
-    filter: blur(6px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
-    filter: blur(0);
   }
 }
 
@@ -171,6 +129,7 @@ body {
 
 html {
   color-scheme: light;
+  scroll-padding-top: 88px;
 }
 
 /* Shared page grid — same max-width + gutter as the header */
@@ -402,7 +361,6 @@ button {
 
 .motion-press:hover {
   transform: translateY(-1px);
-  filter: brightness(1.06);
 }
 
 .motion-press:active {
@@ -465,7 +423,7 @@ button {
 }
 
 .font-helvetica-display {
-  font-family: "Helvetica Now Display", var(--font-display), sans-serif;
+  font-family: var(--font-display);
 }
 
 .no-scrollbar {
@@ -483,6 +441,13 @@ button {
 
 .animate-marquee-slow {
   animation: var(--animate-marquee-slow);
+}
+
+@media (max-width: 767px) {
+  .animate-marquee,
+  .animate-marquee-slow {
+    animation: none;
+  }
 }
 
 .animate-cursor-blink {

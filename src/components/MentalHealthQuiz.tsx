@@ -342,7 +342,17 @@ export default function MentalHealthQuiz({
             </p>
             <Link
               href="/contact"
-              onClick={onClose}
+              onClick={() => {
+                try {
+                  sessionStorage.setItem(
+                    "medvicare-quiz",
+                    `Mental-health quiz: ${concernLabel}${answers.province ? ` · ${answers.province}` : ""}\nAnswers: ${JSON.stringify(answers)}`,
+                  );
+                } catch {
+                  /* ignore */
+                }
+                onClose();
+              }}
               className="mt-8 inline-flex rounded-full bg-ppc-accent px-6 py-3.5 text-[14px] font-medium text-white hover:bg-ppc-accent-soft"
             >
               Continue to contact
@@ -352,8 +362,9 @@ export default function MentalHealthQuiz({
 
         <div className="mt-auto pt-10">
           <p className="text-center text-[11px] leading-relaxed text-ppc-primary/70">
-            We respect your privacy. All of your information is securely stored
-            on our PIPEDA Compliant server.
+            Quiz answers stay on this device until you choose to send them
+            through Contact. Do not use this form for emergencies — call local
+            emergency services.
           </p>
         </div>
       </div>

@@ -59,10 +59,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw) as CartItem[];
-        if (Array.isArray(parsed)) setItems(parsed);
+      const consent = localStorage.getItem("medvicare-consent");
+      if (consent === "all") {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw) as CartItem[];
+          if (Array.isArray(parsed)) setItems(parsed);
+        }
       }
     } catch {
       /* ignore */
@@ -72,7 +75,21 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!hydrated) return;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    const persist = () => {
+      try {
+        const consent = localStorage.getItem("medvicare-consent");
+        if (consent === "all") {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+        } else if (consent === "essential") {
+          localStorage.removeItem(STORAGE_KEY);
+        }
+      } catch {
+        /* ignore */
+      }
+    };
+    persist();
+    window.addEventListener("medvicare-consent", persist);
+    return () => window.removeEventListener("medvicare-consent", persist);
   }, [items, hydrated]);
 
   const addItem = useCallback((item: Omit<CartItem, "qty">) => {

@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { media } from "@/lib/content";
 
 export type UsageItem = {
   slug: string;
@@ -60,7 +59,7 @@ export default function UsageGuide({
                     setActiveSlug(item.slug);
                     setTab("use");
                   }}
-                  className={`shrink-0 rounded-full border px-4 py-2 text-[13px] font-medium transition-all ${
+                  className={`shrink-0 min-h-11 rounded-full border px-4 py-2.5 text-[13px] font-medium transition-all ${
                     on
                       ? "border-ppc-accent bg-ppc-accent text-white"
                       : "border-ppc-border bg-ppc-surface text-ppc-primary hover:border-ppc-accent"
@@ -81,12 +80,11 @@ export default function UsageGuide({
           {hideImage ? null : (
           <div className="relative mx-auto aspect-square w-full max-w-[280px] overflow-hidden rounded-2xl bg-ppc-mint lg:max-w-none">
             <Image
-              src={`${current.image}?v=${media.cutoutVersion}`}
+              src={current.image}
               alt={current.name}
               fill
               className="object-contain object-center p-8"
               sizes="(max-width: 1024px) 280px, 40vw"
-              unoptimized
             />
           </div>
           )}
@@ -100,7 +98,7 @@ export default function UsageGuide({
                     key={item.id}
                     type="button"
                     onClick={() => setTab(item.id)}
-                    className={`rounded-full px-4 py-2 text-[13px] font-semibold uppercase tracking-[0.1em] transition-all ${
+                    className={`min-h-11 rounded-full px-4 py-2.5 text-[13px] font-semibold uppercase tracking-[0.1em] transition-all ${
                       on
                         ? "bg-ppc-accent text-white"
                         : "bg-ppc-mint text-ppc-primary hover:bg-ppc-accent/15"

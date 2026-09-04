@@ -1,4 +1,4 @@
-/** Sexual health / ED plan chooser (reference: myrocky.ca/ed-flow). */
+/** Sexual health plan chooser content. */
 
 export type EdPlan = {
   id: string;

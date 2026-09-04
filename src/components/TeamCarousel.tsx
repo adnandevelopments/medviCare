@@ -38,7 +38,7 @@ export default function TeamCarousel({
   };
 
   const arrowClass =
-    "absolute top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-ppc-border bg-white text-ppc-accent shadow-[0_8px_20px_-8px_rgba(61,82,160,0.45)] hover:bg-ppc-accent hover:text-white";
+    "absolute top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-ppc-border bg-white text-ppc-accent hover:bg-ppc-accent hover:text-white";
 
   return (
     <div className="relative">
@@ -46,7 +46,7 @@ export default function TeamCarousel({
         type="button"
         aria-label="Previous clinicians"
         onClick={() => scrollBy(-1)}
-        className={`${arrowClass} left-0 -translate-x-1/2`}
+        className={`${arrowClass} left-2`}
       >
         <Chevron dir="prev" />
       </button>
@@ -54,7 +54,7 @@ export default function TeamCarousel({
         type="button"
         aria-label="Next clinicians"
         onClick={() => scrollBy(1)}
-        className={`${arrowClass} right-0 translate-x-1/2`}
+        className={`${arrowClass} right-2`}
       >
         <Chevron dir="next" />
       </button>

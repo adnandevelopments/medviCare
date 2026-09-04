@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/components/CartProvider";
-import { media, type Product } from "@/lib/content";
+import { type Product } from "@/lib/content";
 
 export default function ProductCardGrid({
   products,
@@ -33,12 +33,11 @@ export default function ProductCardGrid({
               className="relative aspect-[4/5] w-full bg-white"
             >
               <Image
-                src={`${product.image}?v=${media.cutoutVersion}`}
+                src={product.image}
                 alt={product.name}
                 fill
                 className="object-contain object-center p-8 transition-transform duration-500 hover:scale-105"
                 sizes="(max-width: 768px) 50vw, 33vw"
-                unoptimized
               />
             </Link>
             <div className="flex flex-1 flex-col p-5">

@@ -34,8 +34,8 @@ const sharedSteps = [
 const detailsBySlug: Record<string, ProductDetailContent> = {
   "anti-aging-cream": {
     badge: "Dermatologist formulated",
-    rating: "★★★★★",
-    reviewCount: "1.3K",
+    rating: "Clinician reviewed",
+    reviewCount: "Comments on this page",
     headline: "The Anti-Aging Cream",
     description:
       "Treat fine lines and wrinkles, uneven skin tone, and collagen support with a solution personalized for your skin.",
@@ -134,8 +134,8 @@ const detailsBySlug: Record<string, ProductDetailContent> = {
   },
   "acne-cream": {
     badge: "Dermatologist informed",
-    rating: "★★★★★",
-    reviewCount: "980",
+    rating: "Clinician reviewed",
+    reviewCount: "Comments on this page",
     headline: "The Acne Cream",
     description:
       "Target breakouts, clogged pores, and uneven texture with a prescription pathway matched to your skin.",
@@ -216,8 +216,8 @@ const detailsBySlug: Record<string, ProductDetailContent> = {
   },
   "hyperpigmentation-cream": {
     badge: "Tone & clarity focused",
-    rating: "★★★★★",
-    reviewCount: "740",
+    rating: "Clinician reviewed",
+    reviewCount: "Comments on this page",
     headline: "The Hyperpigmentation Cream",
     description:
       "Help fade dark spots and uneven tone with a brightening plan reviewed by a licensed clinician.",
@@ -298,8 +298,8 @@ const detailsBySlug: Record<string, ProductDetailContent> = {
   },
   zonnic: {
     badge: "Health Canada–authorized NRT",
-    rating: "★★★★★",
-    reviewCount: "900+",
+    rating: "Clinician reviewed",
+    reviewCount: "Comments on this page",
     headline: "ZONNIC Nicotine Pouches",
     description:
       "A pouch-format nicotine replacement therapy to help adults quit smoking — measured 4 mg doses, mint flavours, and discreet online care.",
@@ -348,7 +348,7 @@ const detailsBySlug: Record<string, ProductDetailContent> = {
       {
         title: "Clear plan",
         points: [
-          "Transparent pricing from $49",
+          "Transparent pricing from $12.50 per tin",
           "Home delivery",
           "Portal support for questions",
         ],
@@ -392,16 +392,104 @@ const detailsBySlug: Record<string, ProductDetailContent> = {
 };
 
 function defaultDetail(product: Product): ProductDetailContent {
+  const byCategory: Record<
+    string,
+    { howItWorks: string; howToUse: string; formulations: string[] }
+  > = {
+    "weight-loss": {
+      howItWorks:
+        "GLP-1 and related metabolic options are considered only after a clinician reviews your history, goals, and any required labs. They are not over-the-counter weight products.",
+      howToUse:
+        "If approved, follow the injection or tablet schedule in your plan, including missed-dose rules from the pharmacy label. Do not change dose without clinician guidance. Message the portal for nausea, hydration, or refill timing.",
+      formulations: [
+        "Brand or generic option selected after review",
+        "Dose titration is clinician-directed",
+        "Lifestyle support sits beside medication, not instead of it",
+      ],
+    },
+    "sexual-health": {
+      howItWorks:
+        "PDE5 and related options increase blood flow when sexual stimulation is present. A clinician checks heart health, nitrates, and other medications before recommending a product.",
+      howToUse:
+        "Take only as directed on your approved label — often before anticipated activity, not as a daily vitamin unless prescribed that way. Avoid nitrates. Alcohol can worsen side effects.",
+      formulations: [
+        "On-demand or daily regimens when appropriate",
+        "Tablet or chewable formats depending on the product",
+        "Strength chosen after clinical review",
+      ],
+    },
+    "hair-loss": {
+      howItWorks:
+        "Finasteride and minoxidil pathways target DHT-related thinning or follicle stimulation. Results are gradual and typically assessed over months, not days.",
+      howToUse:
+        "Use tablets or topical exactly as labeled if approved. Topicals go on a dry scalp; wash hands after. Tell the clinician about pregnancy plans — some hair medicines are not appropriate if someone in the household could become pregnant.",
+      formulations: [
+        "Oral, topical, or combined paths",
+        "Supply windows shown on the product card",
+        "Follow-up if shedding or irritation appears",
+      ],
+    },
+    longevity: {
+      howItWorks:
+        "Longevity programs start with labs and a plan — not a single supplement sold as a cure. Optional add-ons are only used when a clinician agrees they fit.",
+      howToUse:
+        "Complete recommended bloodwork first. Follow the action plan you receive. Add-ons such as NAD+ are optional and are not a substitute for sleep, movement, and metabolic care.",
+      formulations: [
+        "Biomarker panel and written plan",
+        "Optional add-ons after review",
+        "Recheck intervals set by the care team",
+      ],
+    },
+    "mental-health": {
+      howItWorks:
+        "Care starts with a consultation. Medication is only added if a clinician decides it is appropriate for your symptoms, history, and province of residence.",
+      howToUse:
+        "Keep follow-up appointments and report worsening mood, agitation, or thoughts of self-harm immediately — call local emergency services if you are in danger. Do not stop a prescribed medicine abruptly unless told to.",
+      formulations: [
+        "Consultation-first path",
+        "Medication plan only when approved",
+        "Portal check-ins for side effects",
+      ],
+    },
+    "quit-smoking": {
+      howItWorks:
+        "Nicotine replacement can reduce withdrawal while you change the smoking habit. ZONNIC is authorized in Canada as NRT — not as a recreational pouch.",
+      howToUse:
+        "Follow the month-by-month pouch schedule on the product page if approved. Do not exceed the daily maximum. Keep away from children. Not for non-smokers or people under 18.",
+      formulations: [
+        "Measured nicotine pouches",
+        "Mint flavour options",
+        "Step-down schedule over months",
+      ],
+    },
+    skin: {
+      howItWorks:
+        "Prescription creams use clinician-selected strengths for acne, tone, or aging concerns. Barrier care and sunscreen are part of the plan.",
+      howToUse:
+        "Start slowly if directed, moisturize, and use daily SPF. Pause and message the team for severe peeling, swelling, or eye irritation.",
+      formulations: [
+        "Custom strength after review",
+        "Simple supporting routine",
+        "Adjustments via portal if needed",
+      ],
+    },
+  };
+
+  const extra = byCategory[product.category];
+
   return {
     badge: "Clinician reviewed",
-    rating: "★★★★★",
-    reviewCount: "500+",
+    rating: "Review after intake",
+    reviewCount: "No public star rating listed",
     headline: product.name,
     description: product.blurb,
-    howItWorks: `${product.name} is considered during a clinician review of your goals, history, and whether this option is appropriate for you.`,
+    howItWorks:
+      extra?.howItWorks ??
+      `${product.name} is considered during a clinician review of your goals, history, and whether this option is appropriate for you.`,
     howToUse:
-      "Follow the directions provided with your approved plan. Message your care team in the portal if you have questions about timing or side effects.",
-    formulations: [
+      extra?.howToUse ??
+      "Follow the directions on your approved plan and pharmacy label. Message the care team about timing or side effects — do not change dose on your own.",
+    formulations: extra?.formulations ?? [
       "Option selected after clinical review",
       "Clear expectations before you start",
       "Support available for refills and follow-ups",
@@ -480,7 +568,7 @@ export function getProductDetail(slug: string): ProductDetailContent | null {
   return detailsBySlug[slug] ?? defaultDetail(product);
 }
 
-/** Skincare landing content (reference: myrocky.ca/skincare). */
+/** Skincare landing content. */
 export const skincare = {
   hero: {
     eyebrow: "Prescription skincare",

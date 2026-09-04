@@ -41,6 +41,7 @@ export default function PageHero({
   return (
     <FullBleedHero
       image={plain ? undefined : image}
+      imageAlt={title}
       underHeader={underHeader}
       compact={compact}
     >
@@ -111,12 +112,11 @@ export default function PageHero({
             }`}
           >
             <Image
-              src={`${sideImage}?v=${media.cutoutVersion}`}
+              src={sideImage}
               alt={sideImageAlt || title}
               fill
               className="object-contain object-center p-8"
               sizes="380px"
-              unoptimized
             />
           </div>
         ) : null}

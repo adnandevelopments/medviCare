@@ -10,13 +10,8 @@ import {
   getProductsByCategories,
   type Product,
 } from "@/lib/content";
+import { heroForProductCategory, notesForProduct } from "@/lib/pageStories";
 import type { ProductDetailContent } from "@/lib/productDetails";
-
-const reviewPhotos = [
-  "/images/team-maya.png",
-  "/images/team-chris.png",
-  "/images/team-nora.png",
-];
 
 export default function ProductDetailPage({
   product,
@@ -32,21 +27,16 @@ export default function ProductDetailPage({
   const price = product.price ?? "Varies";
   const priceLabel = product.priceLabel ?? "Clinician-guided pricing";
 
-  const reviews = detail.testimonials.slice(0, 3).map((item, i) => ({
-    name: item.name,
-    quote: item.quote,
-    meta: item.condition,
-    image: reviewPhotos[i % reviewPhotos.length],
-  }));
+  const reviews = notesForProduct(product.slug);
 
   return (
     <>
       <PageHero
         compact
-        plain
         eyebrow={detail.badge}
         title={detail.headline}
         description={detail.description}
+        image={heroForProductCategory(product.category)}
         sideImage={product.image}
         sideImageAlt={product.name}
         cta={{ label: "How to use", href: "#usage" }}

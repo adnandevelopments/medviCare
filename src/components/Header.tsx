@@ -6,10 +6,12 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import BrandLogo from "@/components/BrandLogo";
 import { useCart } from "@/components/CartProvider";
-import { media, meds, treatments } from "@/lib/content";
+import { meds, treatments } from "@/lib/content";
 
 const navLinks = [
   { label: "Home", href: "/" },
+  { label: "Treatments", href: "/treatments" },
+  { label: "Medications", href: "/medications" },
   { label: "About us", href: "/about" },
   { label: "Contact us", href: "/contact" },
 ];
@@ -19,8 +21,7 @@ const supportLinks = [
   { label: "About Us", href: "/about" },
   { label: "Contact Us", href: "/contact" },
   { label: "Medications", href: "/medications" },
-  { label: "Weight loss", href: "/treatments/weight-loss" },
-  { label: "Body optimization", href: "/body-optimization" },
+  { label: "Weight loss", href: "/body-optimization" },
   { label: "Hair loss", href: "/hairloss" },
   { label: "Skincare", href: "/skincare" },
   { label: "Longevity", href: "/longevity" },
@@ -108,7 +109,7 @@ export default function Header() {
         <nav className="site-inner relative flex h-[72px] items-center justify-between">
           <BrandLogo onClick={closeMenu} light={overHero} />
 
-          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 md:flex lg:gap-10">
+          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-5 lg:flex lg:gap-8">
             {navLinks.map((item) => {
               const active =
                 item.href === "/"
@@ -138,7 +139,7 @@ export default function Header() {
           <div className="flex items-center gap-1.5 sm:gap-2">
             <button
               type="button"
-              className={`relative inline-flex h-10 w-10 items-center justify-center transition-colors ${iconClass}`}
+              className={`relative inline-flex h-11 w-11 items-center justify-center transition-colors ${iconClass}`}
               aria-label={count > 0 ? `Open cart, ${count} items` : "Open cart"}
               onClick={() => {
                 if (open) {
@@ -168,7 +169,7 @@ export default function Header() {
             </button>
             <button
               type="button"
-              className={`inline-flex h-10 w-10 items-center justify-center transition-colors ${iconClass}`}
+              className={`inline-flex h-11 w-11 items-center justify-center transition-colors ${iconClass}`}
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
               onClick={toggleMenu}
@@ -227,7 +228,7 @@ export default function Header() {
               <button
                 type="button"
                 onClick={closeMenu}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-ppc-border text-ppc-primary hover:bg-ppc-mint"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-ppc-border text-ppc-primary hover:bg-ppc-mint"
                 aria-label="Close menu"
               >
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -256,12 +257,11 @@ export default function Header() {
                       >
                         <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-ppc-mint md:h-16 md:w-16">
                           <Image
-                            src={`${item.image}?v=${media.cutoutVersion}`}
+                            src={item.image}
                             alt={`${item.title} ${item.accent}`}
                             fill
                             className="object-cover object-top"
                             sizes="64px"
-                            unoptimized
                           />
                         </div>
                         <div className="min-w-0 flex-1">
@@ -295,7 +295,7 @@ export default function Header() {
                       key={item.id}
                       type="button"
                       onClick={() => setTab(item.id)}
-                      className={`flex-1 rounded-full px-2 py-2 text-[12px] font-medium transition-all md:text-[13px] ${
+                      className={`flex-1 min-h-11 rounded-full px-2 py-2.5 text-[12px] font-medium transition-all md:text-[13px] ${
                         tab === item.id
                           ? "bg-ppc-accent text-white shadow-sm"
                           : "text-ppc-primary/80 hover:text-ppc-primary"
@@ -339,12 +339,11 @@ export default function Header() {
                         >
                           <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-lg bg-white ring-1 ring-ppc-border/50">
                             <Image
-                              src={`${item.image}?v=${media.cutoutVersion}`}
-                              alt=""
+                              src={item.image}
+                              alt={item.name}
                               fill
                               className="object-contain p-1"
                               sizes="44px"
-                              unoptimized
                             />
                           </span>
                           <span className="min-w-0 flex-1 text-[16px] font-medium text-ppc-primary md:text-[17px]">

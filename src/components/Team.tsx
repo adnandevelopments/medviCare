@@ -7,7 +7,7 @@ import { clinicians, expertPoints } from "@/lib/content";
 
 export default function Team() {
   return (
-    <section id="team" className="site-section bg-ppc-mint">
+    <section id="team" className="site-section scroll-mt-[88px] bg-ppc-mint">
       <div className="site-inner">
         <div className="mb-10 grid gap-6 md:mb-12 md:grid-cols-[1.15fr_0.85fr] md:items-end">
           <div>
@@ -26,6 +26,8 @@ export default function Team() {
             <p className="max-w-md text-[16px] leading-relaxed text-ppc-primary md:justify-self-end md:text-[17px]">
               Licensed physicians, pharmacists, and nurse practitioners review
               every plan — so care stays clinical, private, and easy to follow.
+              Portraits illustrate the types of licensed professionals involved.
+              Your assigned clinician is confirmed after intake.
             </p>
           </Reveal>
         </div>

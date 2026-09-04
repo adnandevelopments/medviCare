@@ -2,18 +2,34 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { formatCartTotal, useCart } from "@/components/CartProvider";
-import { media } from "@/lib/content";
 
 export default function CartDrawer() {
   const { items, open, setOpen, removeItem, updateQty, clear, count } =
     useCart();
+  const panelRef = useRef<HTMLElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!open) return;
+    closeRef.current?.focus();
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
+      if (e.key !== "Tab" || !panelRef.current) return;
+      const focusable = panelRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])',
+      );
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
@@ -25,6 +41,21 @@ export default function CartDrawer() {
 
   if (!open) return null;
 
+  const continueCare = () => {
+    const lines = items.map((item) => `${item.qty}× ${item.title} (${item.price})`);
+    try {
+      sessionStorage.setItem(
+        "medvicare-cart-note",
+        lines.length
+          ? `I would like a clinician review for:\n${lines.join("\n")}`
+          : "",
+      );
+    } catch {
+      /* ignore */
+    }
+    setOpen(false);
+  };
+
   return (
     <>
       <div
@@ -33,6 +64,7 @@ export default function CartDrawer() {
         aria-hidden
       />
       <aside
+        ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-label="Shopping cart"
@@ -46,9 +78,10 @@ export default function CartDrawer() {
             </p>
           </div>
           <button
+            ref={closeRef}
             type="button"
             onClick={() => setOpen(false)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-ppc-border text-ppc-primary hover:bg-ppc-mint"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-ppc-border text-ppc-primary hover:bg-ppc-mint"
             aria-label="Close cart"
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -69,12 +102,12 @@ export default function CartDrawer() {
                 Your cart is empty
               </p>
               <p className="mt-2 text-[13px] text-ppc-primary/78">
-                Browse hair loss options and add a plan to continue.
+                Browse care paths and add a plan to continue.
               </p>
               <Link
-                href="/hairloss#options"
+                href="/treatments"
                 onClick={() => setOpen(false)}
-                className="mt-5 inline-flex rounded-full bg-ppc-accent px-4 py-2.5 text-[14px] font-medium text-white hover:bg-ppc-accent-soft"
+                className="mt-5 inline-flex min-h-11 items-center rounded-full bg-ppc-accent px-4 py-2.5 text-[14px] font-medium text-white hover:bg-ppc-accent-soft"
               >
                 View options
               </Link>
@@ -88,12 +121,11 @@ export default function CartDrawer() {
                 >
                   <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-ppc-mint">
                     <Image
-                      src={`${item.image}?v=${media.cutoutVersion}`}
+                      src={item.image}
                       alt={item.title}
                       fill
                       className="object-contain p-1"
                       sizes="64px"
-                      unoptimized
                     />
                   </div>
                   <div className="min-w-0 flex-1">
@@ -114,7 +146,7 @@ export default function CartDrawer() {
                     <div className="mt-2 flex items-center gap-2">
                       <button
                         type="button"
-                        className="inline-flex h-7 w-7 items-center justify-center rounded border border-ppc-border text-ppc-primary hover:bg-ppc-mint"
+                        className="inline-flex h-11 w-11 items-center justify-center rounded border border-ppc-border text-ppc-primary hover:bg-ppc-mint"
                         onClick={() => updateQty(item.id, item.qty - 1)}
                         aria-label="Decrease quantity"
                       >
@@ -125,7 +157,7 @@ export default function CartDrawer() {
                       </span>
                       <button
                         type="button"
-                        className="inline-flex h-7 w-7 items-center justify-center rounded border border-ppc-border text-ppc-primary hover:bg-ppc-mint"
+                        className="inline-flex h-11 w-11 items-center justify-center rounded border border-ppc-border text-ppc-primary hover:bg-ppc-mint"
                         onClick={() => updateQty(item.id, item.qty + 1)}
                         aria-label="Increase quantity"
                       >
@@ -133,7 +165,7 @@ export default function CartDrawer() {
                       </button>
                       <button
                         type="button"
-                        className="ml-auto text-[12px] text-ppc-primary/72 hover:text-ppc-accent"
+                        className="ml-auto inline-flex min-h-11 items-center text-[12px] text-ppc-primary/72 hover:text-ppc-accent"
                         onClick={() => removeItem(item.id)}
                       >
                         Remove
@@ -159,11 +191,11 @@ export default function CartDrawer() {
           </p>
           <div className="flex flex-col gap-2">
             <Link
-              href="/contact"
-              onClick={() => setOpen(false)}
+              href="/contact?from=cart"
+              onClick={continueCare}
               className="inline-flex items-center justify-center rounded-full bg-ppc-accent px-4 py-3 text-[14px] font-medium text-white hover:bg-ppc-accent-soft"
             >
-              Continue
+              {items.length ? "Request clinician review" : "Contact care team"}
             </Link>
             {items.length > 0 ? (
               <button

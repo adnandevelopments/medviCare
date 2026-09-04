@@ -10,16 +10,7 @@ export default function BetterCare() {
   const [tab, setTab] = useState<"paths" | "meds">("paths");
 
   return (
-    <section id="care" className="site-section relative overflow-hidden bg-background">
-      <div
-        className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-ppc-accent/10 blur-3xl"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute -right-16 bottom-0 h-80 w-80 rounded-full bg-ppc-accent-soft/10 blur-3xl"
-        aria-hidden
-      />
-
+    <section id="care" className="site-section relative overflow-hidden bg-background scroll-mt-[88px]">
       <div className="site-inner relative">
         <div className="mb-12 grid gap-6 md:mb-14 md:grid-cols-[1.15fr_0.85fr] md:items-end">
           <Reveal variant="blur-up">
@@ -76,12 +67,11 @@ export default function BetterCare() {
               >
                 <div className="relative h-[200px] shrink-0 overflow-hidden bg-ppc-mint">
                   <Image
-                    src={`${item.image}?v=${media.cutoutVersion}`}
+                    src={item.image}
                     alt={`${item.title} ${item.accent}`}
                     fill
                     className="object-contain object-center p-3 transition-transform duration-700 group-hover:scale-105"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    unoptimized
                   />
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ppc-surface via-ppc-accent/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 </div>
@@ -121,12 +111,11 @@ export default function BetterCare() {
                 >
                   <div className="relative h-[148px] shrink-0 overflow-hidden bg-white md:h-[160px]">
                     <Image
-                      src={`${med.image}?v=${media.cutoutVersion}`}
+                      src={med.image}
                       alt={med.name}
                       fill
                       className="object-contain object-center p-5 transition-transform duration-700 group-hover:scale-105"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      unoptimized
                     />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white via-ppc-accent/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   </div>

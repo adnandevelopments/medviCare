@@ -21,9 +21,11 @@ export default function BrandLogo({
       aria-label="medviCare Homepage"
       className={`inline-flex items-center ${className}`}
     >
-      <span className="font-display text-[22px] font-semibold leading-none tracking-tight md:text-[24px]">
+      <span className="font-display text-[22px] font-semibold tracking-tight md:text-[24px]">
         <span className={light ? "text-white" : "text-ppc-primary"}>medvi</span>
-        <span className={light ? "text-white" : "text-ppc-accent-soft"}>Care</span>
+        <span className={light ? "text-ppc-accent-soft" : "text-ppc-accent"}>
+          Care
+        </span>
       </span>
     </Link>
   );

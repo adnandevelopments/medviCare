@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { brand } from "@/lib/content";
 
 export const CONTACT_TOPICS = [
   {
@@ -43,7 +44,7 @@ export const CONTACT_TOPICS = [
 
 export type ContactTopicId = (typeof CONTACT_TOPICS)[number]["id"];
 
-const MAX_MESSAGE = 800;
+const MAX_MESSAGE = 2000;
 
 const COUNTRIES = [
   { iso: "ca", name: "Canada", dial: "+1" },
@@ -66,14 +67,15 @@ const COUNTRIES = [
 type CountryIso = (typeof COUNTRIES)[number]["iso"];
 
 function Flag({ iso }: { iso: string }) {
+  const code = iso.toUpperCase();
+  const emoji = String.fromCodePoint(
+    127397 + code.charCodeAt(0),
+    127397 + code.charCodeAt(1),
+  );
   return (
-    <img
-      src={`https://flagcdn.com/w40/${iso}.png`}
-      alt=""
-      width={20}
-      height={15}
-      className="h-[15px] w-5 rounded-[2px] object-cover"
-    />
+    <span className="text-[16px] leading-none" aria-hidden>
+      {emoji}
+    </span>
   );
 }
 
@@ -131,7 +133,7 @@ function PhoneField({
           value={phone}
           onChange={(e) => onPhoneChange(e.target.value.replace(/[^\d\s()-]/g, ""))}
           placeholder="416 555 0123"
-          className="min-w-0 flex-1 bg-transparent px-3 py-3 text-sm text-ppc-primary outline-none placeholder:text-ppc-primary/35 sm:px-4"
+          className="min-w-0 flex-1 bg-transparent px-3 py-3 text-base text-ppc-primary outline-none placeholder:text-ppc-primary/35 sm:px-4"
         />
       </div>
       <input type="hidden" name="phoneCountry" value={`${selected.iso}:${selected.dial}`} />
@@ -168,7 +170,7 @@ function PhoneField({
 }
 
 const fieldClass =
-  "w-full min-w-0 max-w-full rounded-xl border bg-background px-3 py-3 text-sm text-ppc-primary outline-none transition-all placeholder:text-ppc-primary/35 hover:border-ppc-accent/70 focus:border-ppc-accent focus:ring-4 focus:ring-ppc-accent/15 sm:px-4";
+  "w-full min-w-0 max-w-full rounded-xl border bg-background px-3 py-3 text-base text-ppc-primary outline-none transition-all placeholder:text-ppc-primary/35 hover:border-ppc-accent/70 focus:border-ppc-accent focus:ring-4 focus:ring-ppc-accent/15 sm:px-4";
 
 function fieldBorder(error?: string) {
   return error ? "border-red-400/80" : "border-ppc-border";
@@ -202,6 +204,21 @@ export default function ContactForm({
   const selected = CONTACT_TOPICS.find((item) => item.id === activeTopic);
   const showOrder = activeTopic === "order";
 
+  useEffect(() => {
+    try {
+      const cart = sessionStorage.getItem("medvicare-cart-note");
+      const quiz = sessionStorage.getItem("medvicare-quiz");
+      const parts = [cart, quiz].filter(Boolean) as string[];
+      if (parts.length) {
+        setMessage((prev) => prev || parts.join("\n\n").slice(0, MAX_MESSAGE));
+        if (!topic && !internalTopic) setTopic("plan");
+      }
+    } catch {
+      /* ignore */
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- hydrate once from storage
+  }, []);
+
   const errors = useMemo(() => {
     const next: Record<string, string> = {};
     if (!name.trim()) next.name = "Add your name.";
@@ -212,7 +229,7 @@ export default function ContactForm({
     if (message.trim().length < 12) {
       next.message = "A little more detail helps us help you.";
     }
-    if (message.length > MAX_MESSAGE) next.message = "Keep it under 800 characters.";
+    if (message.length > MAX_MESSAGE) next.message = "Keep it under 2000 characters.";
     return next;
   }, [name, email, activeTopic, message]);
 
@@ -237,11 +254,32 @@ export default function ContactForm({
     e.preventDefault();
     setSubmitted(true);
     if (Object.keys(errors).length) return;
-    setBusy(true);
-    window.setTimeout(() => {
-      setBusy(false);
-      setSentName(name.trim());
-    }, 700);
+    const to = activeTopic === "press" ? brand.press : brand.email;
+    const countryMeta = COUNTRIES.find((c) => c.iso === country);
+    const subject = encodeURIComponent(
+      `medviCare — ${selected?.label ?? "Support"} (${name.trim()})`,
+    );
+    const body = encodeURIComponent(
+      [
+        `Name: ${name.trim()}`,
+        `Email: ${email.trim()}`,
+        phone ? `Phone: ${countryMeta?.dial ?? ""} ${phone}` : null,
+        orderId ? `Order ID: ${orderId}` : null,
+        `Topic: ${selected?.label ?? "—"}`,
+        "",
+        message.trim(),
+      ]
+        .filter((line) => line !== null)
+        .join("\n"),
+    );
+    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+    try {
+      sessionStorage.removeItem("medvicare-cart-note");
+      sessionStorage.removeItem("medvicare-quiz");
+    } catch {
+      /* ignore */
+    }
+    setSentName(name.trim());
   };
 
   if (sentName) {
@@ -265,7 +303,7 @@ export default function ContactForm({
           Thanks, {sentName.split(" ")[0]}.
         </h2>
         <p className="mt-2 text-[15px] leading-relaxed text-ppc-primary/80">
-          Your note is staged for the{" "}
+          Your mail app should open with this note for the{" "}
           <span className="font-medium text-ppc-primary">
             {selected?.routesTo ?? "care team"}
           </span>

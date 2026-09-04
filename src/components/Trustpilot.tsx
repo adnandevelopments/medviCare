@@ -17,18 +17,17 @@ export default function Trustpilot() {
                 Patient voices
               </p>
               <h2 className="font-display text-[32px] font-[400] leading-[1.1] tracking-[-0.02em] text-ppc-primary md:text-[44px]">
-                Patients rate medviCare highly for clarity and care
+                What people say about the process
               </h2>
             </div>
           </Reveal>
           <Reveal delay={100} variant="fade-up">
             <div className="md:justify-self-end md:text-right">
-              <p className="text-[28px] font-semibold tracking-tight text-ppc-primary md:text-[36px]">
-                4.3
-                <span className="text-[16px] font-medium text-ppc-primary/72"> / 5</span>
+              <p className="text-[16px] font-medium text-ppc-primary">
+                {reviews.length} illustrative comments on this site
               </p>
               <p className="mt-1 text-[14px] text-ppc-primary/78">
-                Based on 1,274 reviews
+                Not a third-party star rating or verified review feed.
               </p>
             </div>
           </Reveal>

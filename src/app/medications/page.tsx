@@ -27,11 +27,12 @@ export default function MedicationsPage() {
                 All medications
               </h2>
               <p className="mt-1 text-[14px] text-ppc-primary/78">
-                Same style catalog as body-optimization / weight care grids — built for medviCare.
+                Clinician-reviewed options across care paths. A licensed
+                professional still approves every plan before it ships.
               </p>
             </div>
             <Link
-              href="/treatments/weight-loss"
+              href="/body-optimization"
               className="text-[14px] font-medium text-ppc-accent hover:text-ppc-accent-soft"
             >
               View weight-loss path →

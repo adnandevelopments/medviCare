@@ -29,7 +29,7 @@ export default function TreatmentsPage() {
             >
               <div className="relative min-h-[160px] overflow-hidden bg-ppc-mint md:min-h-[180px]">
                 <Image
-                  src={`${item.image}?v=${media.cutoutVersion}`}
+                  src={item.image}
                   alt={`${item.title} ${item.accent}`}
                   fill
                   className={
@@ -44,7 +44,6 @@ export default function TreatmentsPage() {
                       : "object-cover object-[center_20%]"
                   }
                   sizes="(max-width: 768px) 140px, 180px"
-                  unoptimized
                 />
               </div>
               <div className="flex flex-col justify-center p-5 md:p-7">

@@ -1,4 +1,4 @@
-/** Mental health landing + quiz (reference: myrocky.ca/mental-health, mh-pre-quiz). */
+/** Mental health landing + quiz. */
 
 export const MH_PROVINCES = [
   "Alberta",

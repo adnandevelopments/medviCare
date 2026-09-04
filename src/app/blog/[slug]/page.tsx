@@ -33,27 +33,9 @@ export default async function BlogPostPage({ params }: Props) {
       />
       <section className="site-section">
         <article className="site-prose space-y-5 text-[16px] leading-relaxed text-ppc-primary/88">
-          <p>
-            This note is part of the medviCare health journal — practical guidance
-            to help you make clearer decisions around private, clinician-guided
-            care.
-          </p>
-          <p>
-            {post.excerpt} If you are exploring a care path, start with a short
-            intake so a licensed clinician can review whether a plan is
-            appropriate for you.
-          </p>
-          <p>
-            Have questions about a specific treatment? Browse our{" "}
-            <Link href="/treatments" className="text-ppc-accent">
-              care paths
-            </Link>{" "}
-            or read more in the{" "}
-            <Link href="/faqs" className="text-ppc-accent">
-              FAQ
-            </Link>
-            .
-          </p>
+          {post.body.map((paragraph) => (
+            <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+          ))}
           <Link
             href="/blog"
             className="inline-flex pt-4 text-[14px] font-medium text-ppc-accent"

@@ -1,4 +1,4 @@
-/** Longevity / Live longer landing (reference: myrocky.ca/longevity-c). */
+/** Longevity program landing content. */
 export const longevity = {
   hero: {
     eyebrow: "Longevity program",

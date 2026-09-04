@@ -49,7 +49,7 @@ function AdvisoryCard({ person }: { person: Clinician }) {
     >
       <Image
         src={person.image}
-        alt=""
+        alt={person.name}
         fill
         className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
@@ -112,7 +112,7 @@ function AdvisoryBand({
   return (
     <section
       id={id}
-      className={`site-section ${tinted ? "bg-ppc-mint" : "bg-background"}`}
+      className={`site-section scroll-mt-[88px] ${tinted ? "bg-ppc-mint" : "bg-background"}`}
     >
       <div className="site-inner">
         <Reveal>
@@ -145,7 +145,7 @@ export default function AboutContent() {
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.35 }}
+            viewport={{ once: true, amount: 0.35 }}
             transition={{ duration: 0.7 }}
             className="max-w-[720px]"
           >
@@ -164,12 +164,12 @@ export default function AboutContent() {
             className="group relative mt-8 overflow-hidden rounded-2xl md:mt-10 md:h-[560px]"
             initial={{ opacity: 0, y: 36 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8, delay: 0.08 }}
           >
             <div className="relative aspect-[16/10] w-full md:absolute md:inset-0 md:aspect-auto">
               <Image
-                src="/images/hero5.png"
+                src="/images/hero5.jpg"
                 alt="medviCare care experience"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -187,7 +187,7 @@ export default function AboutContent() {
           <motion.div
             initial={{ opacity: 0, x: -48 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7 }}
           >
             <p className="mb-2 text-[12px] font-semibold uppercase tracking-[0.16em] text-ppc-accent md:text-[13px]">
@@ -203,13 +203,13 @@ export default function AboutContent() {
           <motion.div
             initial={{ opacity: 0, x: 48 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.25 }}
+            viewport={{ once: true, amount: 0.25 }}
             transition={{ duration: 0.8, delay: 0.08 }}
           >
             <div className="group relative aspect-[4/5] overflow-hidden rounded-2xl md:min-h-[560px]">
               <Image
                 src={media.heroPeople}
-                alt=""
+                alt="Person using medviCare-style private care from home"
                 fill
                 className="object-cover object-[center_20%] transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -242,9 +242,13 @@ export default function AboutContent() {
           </div>
 
           <Reveal>
-            <h3 className="mb-8 text-center font-display text-[22px] capitalize text-ppc-primary md:mb-10 md:text-[30px]">
+            <h3 className="mb-2 text-center font-display text-[22px] capitalize text-ppc-primary md:mb-3 md:text-[30px]">
               Leadership team
             </h3>
+            <p className="mx-auto mb-8 max-w-xl text-center text-[14px] text-ppc-primary/75 md:mb-10">
+              Sample profiles that show the kinds of licensed professionals involved.
+              Your clinician is confirmed after intake.
+            </p>
           </Reveal>
 
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">

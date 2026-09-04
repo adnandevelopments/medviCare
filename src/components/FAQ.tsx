@@ -32,8 +32,8 @@ export default function FAQ() {
           <Reveal delay={140} variant="image-in" className="mt-8 hidden lg:block">
             <div className="group relative mb-8 aspect-[4/3] overflow-hidden rounded-2xl">
               <Image
-                src={media.pageHeroes.faqs}
-                alt=""
+                    src={media.pageHeroes.faqs}
+                alt="Clinician and patient conversation"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                 sizes="400px"
