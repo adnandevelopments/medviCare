@@ -3,6 +3,8 @@ export const media = {
   heroPeople: "/images/patients-care.jpg",
   patients: "/images/patients-care.jpg",
   blogBg: "/images/faq-care.jpg",
+  faqSidebar: "/images/faq-sidebar.jpg",
+  footerCta: "/images/footer-cta-warm.jpg",
   heroHome: "/images/hero2.jpg",
   heroSide: "/images/hero6.jpg",
   pageHeroes: {

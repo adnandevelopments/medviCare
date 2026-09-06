@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { readAgeGate } from "@/components/AgeDisclaimerGate";
 
 export const CONSENT_KEY = "medvicare-consent";
 
@@ -19,7 +20,16 @@ export default function ConsentBanner() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    setOpen(!readConsent());
+    const show = () => {
+      if (!readAgeGate()) {
+        setOpen(false);
+        return;
+      }
+      setOpen(!readConsent());
+    };
+    show();
+    window.addEventListener("medvicare-age-ok", show);
+    return () => window.removeEventListener("medvicare-age-ok", show);
   }, []);
 
   const choose = (value: "all" | "essential") => {

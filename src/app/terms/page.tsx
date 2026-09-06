@@ -16,6 +16,10 @@ export default function TermsPage() {
           body: "By using this website you agree to these terms. Provide accurate information if you request care. This site is published in English. Availability of specific paths depends on province, clinician judgment, and pharmacy supply.",
         },
         {
+          heading: "Age",
+          body: "You must be 18 years of age or older to use this website. Some products, including nicotine replacement, may require you to be 19 or older. If you are under 18, do not use this site.",
+        },
+        {
           heading: "Not emergency care",
           body: "medviCare does not replace emergency services. If you are in danger, having chest pain, severe allergic reaction, or thoughts of self-harm, call 911 or your local emergency number immediately.",
         },

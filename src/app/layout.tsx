@@ -1,9 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import CartDrawer from "@/components/CartDrawer";
+import AgeDisclaimerGate from "@/components/AgeDisclaimerGate";
 import ConsentBanner from "@/components/ConsentBanner";
 import { CartProvider } from "@/components/CartProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import FooterCTA from "@/components/FooterCTA";
 import { DEFAULT_THEME } from "@/lib/themes";
 import "./globals.css";
 
@@ -60,9 +62,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <main id="main-content" className="min-w-0 flex-1 overflow-x-clip pt-[72px]">
             {children}
           </main>
+          <FooterCTA />
           <Footer />
           <CartDrawer />
           <ConsentBanner />
+          <AgeDisclaimerGate />
         </CartProvider>
       </body>
     </html>
