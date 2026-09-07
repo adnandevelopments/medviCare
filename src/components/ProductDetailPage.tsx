@@ -10,7 +10,7 @@ import {
   getProductsByCategories,
   type Product,
 } from "@/lib/content";
-import { heroForProductCategory, notesForProduct } from "@/lib/pageStories";
+import { heroForProduct, notesForProduct } from "@/lib/pageStories";
 import type { ProductDetailContent } from "@/lib/productDetails";
 
 export default function ProductDetailPage({
@@ -36,7 +36,7 @@ export default function ProductDetailPage({
         eyebrow={detail.badge}
         title={detail.headline}
         description={detail.description}
-        image={heroForProductCategory(product.category)}
+        image={heroForProduct(product.slug, product.category)}
         sideImage={product.image}
         sideImageAlt={product.name}
         cta={{ label: "How to use", href: "#usage" }}
@@ -64,6 +64,32 @@ export default function ProductDetailPage({
         eyebrow="This medication"
         title="How to use, formulation, and how it works"
       />
+
+      <section className="site-section-sm border-t border-ppc-border">
+        <div className="site-inner">
+          <h2 className="max-w-xl font-display text-[24px] text-ppc-primary md:text-[30px]">
+            How it works
+          </h2>
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {detail.steps.map((item, i) => (
+              <article
+                key={item.title}
+                className="rounded-2xl border border-ppc-border bg-ppc-surface p-6"
+              >
+                <span className="mb-4 inline-flex h-9 w-9 items-center justify-center rounded-full bg-ppc-accent text-[13px] font-semibold text-white">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className="font-display text-[20px] text-ppc-primary">
+                  {item.title}
+                </h3>
+                <p className="mt-2 text-[14px] leading-relaxed text-ppc-primary/80">
+                  {item.body}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {reviews.length ? <PhotoReviews reviews={reviews} /> : null}
 

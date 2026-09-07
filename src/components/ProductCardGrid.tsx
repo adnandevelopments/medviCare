@@ -26,19 +26,22 @@ export default function ProductCardGrid({
         return (
           <article
             key={product.slug}
-            className="flex h-full flex-col overflow-hidden rounded-2xl border border-ppc-border bg-ppc-surface ring-1 ring-ppc-accent/20 transition-all duration-300 hover:-translate-y-1 hover:ring-ppc-accent hover:shadow-[0_18px_40px_-18px_rgba(61,82,160,0.4)]"
+            className="group flex h-full flex-col overflow-hidden rounded-2xl border border-ppc-border bg-ppc-surface ring-1 ring-ppc-accent/20 transition-all duration-300 hover:-translate-y-1 hover:ring-ppc-accent hover:shadow-[0_18px_40px_-18px_rgba(61,82,160,0.4)]"
           >
             <Link
               href={product.href}
-              className="relative aspect-[4/5] w-full bg-white"
+              className="relative aspect-[4/5] w-full overflow-hidden bg-white"
             >
               <Image
                 src={product.image}
                 alt={product.name}
                 fill
-                className="object-contain object-center p-8 transition-transform duration-500 hover:scale-105"
+                className="object-contain object-center p-8 transition-transform duration-500 ease-out group-hover:scale-110"
                 sizes="(max-width: 768px) 50vw, 33vw"
               />
+              <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-white/90 to-transparent px-4 pb-4 pt-10 text-center text-[12px] font-semibold uppercase tracking-[0.14em] text-ppc-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                View details
+              </span>
             </Link>
             <div className="flex flex-1 flex-col p-5">
               <Link href={product.href}>

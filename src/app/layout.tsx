@@ -6,6 +6,7 @@ import { CartProvider } from "@/components/CartProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FooterCTA from "@/components/FooterCTA";
+import PressMarquee from "@/components/PressMarquee";
 import { DEFAULT_THEME } from "@/lib/themes";
 import "./globals.css";
 
@@ -62,6 +63,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <main id="main-content" className="min-w-0 flex-1 overflow-x-clip pt-[72px]">
             {children}
           </main>
+          <PressMarquee />
           <FooterCTA />
           <Footer />
           <CartDrawer />

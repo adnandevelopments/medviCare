@@ -381,7 +381,7 @@ export const products: Product[] = [
   {
     slug: "anti-aging-cream",
     name: "Anti-aging Cream",
-    image: "/images/meds/med-anti-aging.png",
+    image: "/images/meds/med-skin-antiaging.jpg",
     category: "skin",
     blurb: "Treat fine lines, uneven tone, and support collagen with a clinician-guided formula.",
     href: "/anti-aging-cream",
@@ -392,7 +392,7 @@ export const products: Product[] = [
   {
     slug: "acne-cream",
     name: "Acne Cream",
-    image: "/images/meds/med-acne.png",
+    image: "/images/meds/med-skin-acne.jpg",
     category: "skin",
     blurb: "Prescription-strength support for breakouts, texture, and clearer-looking skin.",
     href: "/acne-cream",
@@ -403,7 +403,7 @@ export const products: Product[] = [
   {
     slug: "hyperpigmentation-cream",
     name: "Hyperpigmentation Cream",
-    image: "/images/meds/med-hyperpigmentation.png",
+    image: "/images/meds/med-skin-pigment.jpg",
     category: "skin",
     blurb: "Target dark spots and uneven tone with a dermatologist-informed brightening plan.",
     href: "/hyperpigmentation-cream",
@@ -414,7 +414,7 @@ export const products: Product[] = [
   {
     slug: "hair-foam",
     name: "Finasteride & Minoxidil Foam",
-    image: "/images/meds/med-hair-foam.png",
+    image: "/images/meds/med-hair-foam.jpg",
     category: "hair-loss",
     blurb: "Targeted topical support for hair regrowth paths.",
     href: "/medications/hair-foam",
@@ -446,7 +446,7 @@ export const products: Product[] = [
   {
     slug: "hair-tablet-topical",
     name: "Tablet & topical",
-    image: "/images/meds/med-hair-foam.png",
+    image: "/images/meds/med-hair-combo-w.jpg",
     category: "hair-loss",
     blurb: "Finasteride tablets with minoxidil solution — a combined 3-month path.",
     href: "/medications/hair-tablet-topical",
@@ -456,7 +456,7 @@ export const products: Product[] = [
   {
     slug: "hair-topical",
     name: "Minoxidil solution",
-    image: "/images/meds/med-hair-foam.png",
+    image: "/images/meds/med-hair-topical-w.jpg",
     category: "hair-loss",
     blurb: "Topical minoxidil to support density at the crown and hairline.",
     href: "/medications/hair-topical",
@@ -466,7 +466,7 @@ export const products: Product[] = [
   {
     slug: "hair-tablet",
     name: "Finasteride tablets",
-    image: "/images/meds/med-hair-foam.png",
+    image: "/images/meds/med-hair-tablet-w.jpg",
     category: "hair-loss",
     blurb: "Oral finasteride when a clinician approves it for pattern hair loss.",
     href: "/medications/hair-tablet",
@@ -726,7 +726,7 @@ export const hairLoss = {
       id: "foam",
       title: "2-in-1 Foam",
       badge: "Most Popular",
-      image: "/images/meds/med-hair-foam.png",
+      image: "/images/meds/med-hair-foam.jpg",
       lines: ["Finasteride & Minoxidil combination foam"],
       note: "*Subject to patient consultation",
       supply: "2 Months Supply",
@@ -736,7 +736,7 @@ export const hairLoss = {
     {
       id: "tablet-topical",
       title: "Tablet & Topical solution",
-      image: "/images/meds/med-cialis.png",
+      image: "/images/meds/med-hair-combo-w.jpg",
       lines: [
         "Propecia (finasteride) Tablets*",
         "Minoxidil (Rogaine) Solution",
@@ -749,7 +749,7 @@ export const hairLoss = {
     {
       id: "topical",
       title: "Topical Solution",
-      image: "/images/meds/med-hair-foam.png",
+      image: "/images/meds/med-hair-topical-w.jpg",
       lines: ["Minoxidil (Rogaine)"],
       supply: "3 Months Supply",
       price: "$101.25",
@@ -759,7 +759,7 @@ export const hairLoss = {
     {
       id: "tablet",
       title: "Tablet Solution",
-      image: "/images/meds/med-cialis.png",
+      image: "/images/meds/med-hair-tablet-w.jpg",
       lines: ["Finasteride (Propecia) Tablets*"],
       note: "*Subject to patient consultation",
       supply: "3 Months Supply",

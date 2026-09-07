@@ -7,7 +7,6 @@ import HowItWorks from "@/components/HowItWorks";
 import DoctorTrusted from "@/components/DoctorTrusted";
 import Team from "@/components/Team";
 import Trustpilot from "@/components/Trustpilot";
-import PressMarquee from "@/components/PressMarquee";
 import BlogCTA from "@/components/BlogCTA";
 import FAQ from "@/components/FAQ";
 
@@ -23,7 +22,6 @@ export default function Home() {
       <DoctorTrusted />
       <Team />
       <Trustpilot />
-      <PressMarquee />
       <BlogCTA />
       <FAQ />
     </>

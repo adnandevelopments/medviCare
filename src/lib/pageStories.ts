@@ -34,12 +34,23 @@ export const treatmentHeroes: Record<string, string> = {
 
 export const productHeroes: Record<string, string> = {
   "weight-loss": media.treatments.weight,
-  "hair-loss": media.treatments.hair,
+  "hair-loss": "/images/hero-hair-foam.jpg",
   skin: media.treatments.skin,
   longevity: media.treatments.longevity,
   "sexual-health": media.treatments.sex,
   "mental-health": media.pageHeroes.mental,
   "quit-smoking": media.treatments.smoking,
+};
+
+/** Unique product-page heroes so hair options do not share the treatment graphic. */
+export const productPageHeroes: Record<string, string> = {
+  "hair-foam": "/images/hero-hair-foam.jpg",
+  "hair-topical": "/images/hero-hair-topical.jpg",
+  "hair-tablet": "/images/hero-hair-tablet.jpg",
+  "hair-tablet-topical": "/images/hero-hair-combo.jpg",
+  "anti-aging-cream": "/images/hero-skin-antiaging.jpg",
+  "acne-cream": "/images/hero-skin-acne.jpg",
+  "hyperpigmentation-cream": "/images/hero-skin-pigment.jpg",
 };
 
 export const treatmentNotes: Record<string, PhotoReview[]> = {
@@ -187,4 +198,8 @@ export function heroForTreatment(slug: string): string {
 
 export function heroForProductCategory(category: string): string {
   return productHeroes[category] ?? media.pageHeroes.medications;
+}
+
+export function heroForProduct(slug: string, category: string): string {
+  return productPageHeroes[slug] ?? heroForProductCategory(category);
 }

@@ -1,3 +1,4 @@
+import CarePathExtras from "@/components/CarePathExtras";
 import CarePathQuiz from "@/components/CarePathQuiz";
 import PageHero from "@/components/PageHero";
 import PhotoReviews from "@/components/PhotoReviews";
@@ -45,6 +46,8 @@ export default function CarePathPage({ slug }: { slug: string }) {
         extraCta={<CarePathQuiz slug={slug} />}
       />
 
+      <CarePathExtras slug={slug} part="intro" />
+
       <section
         id="options"
         className="site-section-sm scroll-mt-[88px]"
@@ -77,6 +80,8 @@ export default function CarePathPage({ slug }: { slug: string }) {
       ) : null}
 
       {reviews.length ? <PhotoReviews reviews={reviews} /> : null}
+
+      <CarePathExtras slug={slug} part="more" />
     </>
   );
 }

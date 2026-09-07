@@ -78,7 +78,7 @@ export default function UsageGuide({
           }`}
         >
           {hideImage ? null : (
-          <div className="relative mx-auto aspect-square w-full max-w-[280px] overflow-hidden rounded-2xl bg-ppc-mint lg:max-w-none">
+            <div className="relative mx-auto aspect-square w-full max-w-[280px] overflow-hidden rounded-2xl bg-white ring-1 ring-ppc-border lg:max-w-none">
             <Image
               src={current.image}
               alt={current.name}

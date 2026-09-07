@@ -25,8 +25,9 @@ export default function FooterCTA() {
             <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.2em] text-ppc-accent">
               Ready when you are
             </p>
-            <h2 className="font-display text-[32px] font-semibold leading-[1.08] tracking-[-0.03em] text-ppc-primary md:text-[48px]">
-              Private care starts with one tap
+            <h2 className="font-display text-[32px] font-semibold leading-[1.08] tracking-[-0.03em] text-white md:text-[48px]">
+              <span className="text-ppc-primary">Private care starts</span> with
+              one tap
             </h2>
             <p className="mt-4 max-w-md text-[16px] leading-relaxed text-ppc-primary/80">
               Browse clinician-guided paths, add a plan, and request a review —
