@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import ClinicianModal from "@/components/ClinicianModal";
 import { motion } from "@/components/Motion";
 import Reveal from "@/components/Reveal";
@@ -16,85 +16,40 @@ import {
   type Clinician,
 } from "@/lib/content";
 
-function AdvisoryCard({ person }: { person: Clinician }) {
-  const [open, setOpen] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!open) return;
-
-    const close = (event: PointerEvent | KeyboardEvent) => {
-      if (event instanceof KeyboardEvent) {
-        if (event.key === "Escape") setOpen(false);
-        return;
-      }
-      if (!cardRef.current?.contains(event.target as Node)) setOpen(false);
-    };
-
-    document.addEventListener("pointerdown", close);
-    document.addEventListener("keydown", close);
-    return () => {
-      document.removeEventListener("pointerdown", close);
-      document.removeEventListener("keydown", close);
-    };
-  }, [open]);
-
+function AdvisoryCard({
+  person,
+  onOpen,
+}: {
+  person: Clinician;
+  onOpen: () => void;
+}) {
   return (
-    <div
-      ref={cardRef}
-      className="group relative min-h-[340px] w-full overflow-hidden rounded-3xl bg-ppc-dark md:min-h-[360px]"
-      onClick={() => {
-        if (!open) setOpen(true);
-      }}
+    <button
+      type="button"
+      onClick={onOpen}
+      className="group relative min-h-[340px] w-full overflow-hidden rounded-3xl bg-ppc-dark text-left appearance-none md:min-h-[360px]"
     >
       <Image
         src={person.image}
         alt={person.name}
         fill
-        className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+        className="object-cover object-top"
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
       />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ppc-dark via-ppc-dark/35 to-transparent" />
-
-      <button
-        type="button"
-        aria-expanded={open}
-        aria-label={open ? `Hide ${person.name} bio` : `Read ${person.name} bio`}
-        onClick={() => (open ? setOpen(false) : setOpen(true))}
-        className={`absolute inset-0 z-10 flex flex-col justify-start bg-ppc-dark/92 p-5 text-left text-white appearance-none transition-transform duration-500 ease-out md:p-6 ${
-          open ? "translate-y-0" : "translate-y-[64%]"
-        }`}
-      >
-        <div className="pr-14">
-          <p className="font-display text-[17px] font-semibold leading-tight md:text-[18px]">
-            {person.name}
-          </p>
-          <p className="mt-1 text-[13px] text-white/75">{person.credentials}</p>
-          <p className="mt-0.5 text-[12px] font-medium uppercase tracking-[0.12em] text-ppc-accent-soft">
-            {person.role}
-          </p>
-        </div>
-        <div
-          className={`overflow-hidden transition-all duration-500 ${
-            open ? "mt-4 max-h-48 opacity-100" : "max-h-0 opacity-0"
-          }`}
-        >
-          <p className="pr-1 text-[13px] leading-relaxed text-white/82 md:text-[14px]">
-            {person.bio}
-          </p>
-        </div>
-      </button>
-
-      <button
-        type="button"
-        aria-label={open ? `Hide ${person.name} bio` : `Read ${person.name} bio`}
-        onClick={() => setOpen((v) => !v)}
-        className="absolute bottom-4 right-4 z-20 flex h-12 w-12 items-center justify-center rounded-full bg-ppc-accent text-[22px] leading-none text-white shadow-[0_10px_24px_-10px_rgba(61,82,160,0.8)] transition-transform duration-300 hover:bg-ppc-accent-soft"
-        style={{ transform: open ? "rotate(45deg)" : "rotate(0deg)" }}
-      >
-        +
-      </button>
-    </div>
+      <div className="absolute inset-0 bg-gradient-to-t from-ppc-dark via-ppc-dark/40 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
+        <p className="font-display text-[17px] font-semibold leading-tight text-white md:text-[18px]">
+          {person.name}
+        </p>
+        <p className="mt-1 text-[13px] text-white/75">{person.credentials}</p>
+        <p className="mt-0.5 text-[12px] font-medium uppercase tracking-[0.12em] text-ppc-accent-soft">
+          {person.role}
+        </p>
+        <p className="mt-3 text-[13px] font-semibold text-white/90 transition-colors group-hover:text-ppc-accent-soft">
+          Read more
+        </p>
+      </div>
+    </button>
   );
 }
 
@@ -103,11 +58,13 @@ function AdvisoryBand({
   title,
   people,
   tinted = false,
+  onOpen,
 }: {
   id: string;
   title: string;
   people: Clinician[];
   tinted?: boolean;
+  onOpen: (person: Clinician) => void;
 }) {
   return (
     <section
@@ -123,7 +80,7 @@ function AdvisoryBand({
         <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {people.map((person, i) => (
             <Reveal key={person.name} delay={40 + i * 40} variant="rise">
-              <AdvisoryCard person={person} />
+              <AdvisoryCard person={person} onOpen={() => onOpen(person)} />
             </Reveal>
           ))}
         </div>
@@ -257,16 +214,17 @@ export default function AboutContent() {
                 <button
                   type="button"
                   onClick={() => setSelected(member)}
-                  className="motion-card group w-full appearance-none text-center"
+                  className="group w-full appearance-none text-center"
                 >
                   <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
                     <Image
                       src={member.image}
                       alt={member.name}
                       fill
-                      className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                      className="object-cover object-top"
                       sizes="(max-width: 1024px) 50vw, 33vw"
                     />
+                    <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-black/5 transition-[box-shadow] duration-300 group-hover:ring-ppc-accent/45" />
                   </div>
                   <h3 className="mt-5 font-display text-[22px] font-semibold leading-tight text-ppc-primary md:text-[24px]">
                     {member.name}
@@ -291,12 +249,14 @@ export default function AboutContent() {
         id="medical-advisory"
         title="Medical advisory team"
         people={medicalAdvisory}
+        onOpen={setSelected}
       />
       <AdvisoryBand
         id="pharmacy-advisory"
         title="Pharmaceutical advisory team"
         people={pharmacyAdvisory}
         tinted
+        onOpen={setSelected}
       />
 
       {/* FAQ — two-column like the reference, with Meet grouping + CTA bar */}

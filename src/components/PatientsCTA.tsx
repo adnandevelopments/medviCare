@@ -14,9 +14,9 @@ export default function PatientsCTA() {
             <div className="relative min-h-[260px] overflow-hidden md:min-h-[420px]">
               <Image
                 src={media.patients}
-                alt="medviCare patients"
+                alt="Person reviewing private care from home"
                 fill
-                className="motion-image object-cover object-[center_20%]"
+                className="motion-image object-cover object-[center_35%]"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ppc-dark/50 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-ppc-dark/20" />

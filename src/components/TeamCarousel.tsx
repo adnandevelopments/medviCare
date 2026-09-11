@@ -69,14 +69,14 @@ export default function TeamCarousel({
             type="button"
             data-clinician-card
             onClick={() => setSelected(person)}
-            className="motion-card group flex w-[min(78vw,280px)] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-ppc-border bg-white p-0 text-left leading-none appearance-none"
+            className="group flex w-[min(78vw,280px)] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-ppc-border bg-white p-0 text-left leading-none appearance-none transition-colors duration-300 hover:border-ppc-accent"
           >
             <div className="relative aspect-square w-full shrink-0 overflow-hidden bg-ppc-mint">
               <Image
                 src={person.image}
                 alt={person.name}
                 fill
-                className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                className="object-cover object-top"
                 sizes="280px"
               />
             </div>

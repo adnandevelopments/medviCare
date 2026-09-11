@@ -23,7 +23,7 @@ function note(
 
 /** Unique full-bleed hero per treatment path — not the shared catalog photo. */
 export const treatmentHeroes: Record<string, string> = {
-  "weight-loss": media.treatments.weight,
+  "weight-loss": "/images/weightLoss.png",
   "hair-loss": media.treatments.hair,
   skin: media.treatments.skin,
   longevity: media.treatments.longevity,
@@ -33,7 +33,7 @@ export const treatmentHeroes: Record<string, string> = {
 };
 
 export const productHeroes: Record<string, string> = {
-  "weight-loss": media.treatments.weight,
+  "weight-loss": "/images/weightLoss.png",
   "hair-loss": "/images/hero-hair-foam.jpg",
   skin: media.treatments.skin,
   longevity: media.treatments.longevity,
