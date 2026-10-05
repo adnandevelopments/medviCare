@@ -13,7 +13,7 @@ export const media = {
     faqs: "/images/faq-care.jpg",
     howItWorks: "/images/process-share-story.jpg",
     treatments: "/images/hero3.jpg",
-    medications: "/images/why-clinical.jpg",
+    medications: "/images/meds/medication.png",
     blog: "/images/faq-care.jpg",
     lifestyle: "/images/patients-home.jpg",
     legal: "/images/hero6.jpg",
@@ -341,7 +341,7 @@ export const products: Product[] = [
   {
     slug: "viagra",
     name: "Viagra®",
-    image: "/images/meds/med-viagra.png",
+    image: "/images/meds/med-viagra-v2.png",
     category: "sexual-health",
     blurb: "Trusted option reviewed by licensed clinicians.",
     href: "/medications/viagra",
@@ -351,7 +351,7 @@ export const products: Product[] = [
   {
     slug: "chewalis",
     name: "Chewalis",
-    image: "/images/meds/med-chewalis.png",
+    image: "/images/meds/med-chewalis-v2.png",
     category: "sexual-health",
     blurb: "Convenient chewable format for discreet daily life.",
     href: "/medications/chewalis",

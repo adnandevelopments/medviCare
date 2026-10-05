@@ -9,7 +9,9 @@ export default function FullBleedHero({
   className = "",
   underHeader = false,
   compact = false,
+  tall = false,
   imageAlt = "",
+  imageClassName = "",
 }: {
   image?: string;
   children: ReactNode;
@@ -19,15 +21,21 @@ export default function FullBleedHero({
   underHeader?: boolean;
   /** Short banner for care-path / catalog pages */
   compact?: boolean;
+  /** Taller hero shell (e.g. medications page) */
+  tall?: boolean;
   imageAlt?: string;
+  /** Extra classes on the background photo (e.g. scale / object position) */
+  imageClassName?: string;
 }) {
   const heightClass = compact
     ? underHeader
       ? "-mt-[72px] min-h-[240px] pb-8 pt-24 md:min-h-[280px] md:pb-10"
       : "min-h-[200px] py-10 md:min-h-[240px] md:py-12"
-    : underHeader
-      ? "-mt-[72px] min-h-[68vh] pb-16 pt-28 md:min-h-[74vh] md:pb-20"
-      : "min-h-[58vh] py-20 md:min-h-[64vh] md:py-24";
+    : tall
+      ? "min-h-[66vh] py-20 md:min-h-[72vh] md:py-24"
+      : underHeader
+        ? "-mt-[72px] min-h-[68vh] pb-16 pt-28 md:min-h-[74vh] md:pb-20"
+        : "min-h-[58vh] py-20 md:min-h-[64vh] md:py-24";
 
   return (
     <section
@@ -40,7 +48,7 @@ export default function FullBleedHero({
               src={image}
               alt={imageAlt || ""}
               fill
-              className="object-cover object-center"
+              className={`object-cover object-center ${imageClassName}`}
               sizes="100vw"
               priority={priority}
             />

@@ -20,8 +20,12 @@ type PageHeroProps = {
   underHeader?: boolean;
   /** Short banner — care-path pages */
   compact?: boolean;
+  /** Taller hero shell */
+  tall?: boolean;
   /** No background photo — product image only (medication heroes) */
   plain?: boolean;
+  /** Extra classes on the background photo */
+  imageClassName?: string;
 };
 
 export default function PageHero({
@@ -36,7 +40,9 @@ export default function PageHero({
   sideImageAlt = "",
   underHeader = false,
   compact = false,
+  tall = false,
   plain = false,
+  imageClassName = "",
 }: PageHeroProps) {
   return (
     <FullBleedHero
@@ -44,6 +50,8 @@ export default function PageHero({
       imageAlt={title}
       underHeader={underHeader}
       compact={compact}
+      tall={tall}
+      imageClassName={imageClassName}
     >
       <div
         className={`grid items-center ${

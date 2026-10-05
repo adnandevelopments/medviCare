@@ -32,8 +32,8 @@ export default function TermsPage() {
           body: "Cialis®, Viagra®, Ozempic®, Mounjaro®, ZONNIC, and other brand names belong to their owners. medviCare is not affiliated with or endorsed by those owners unless a partnership is stated in writing.",
         },
         {
-          heading: "Accounts, cart, and messages",
-          body: "You are responsible for the accuracy of emails you send through your mail app. The on-site cart is a request list, not a paid order. Checkout is a clinician-review request via Contact until a full checkout is launched.",
+          heading: "Accounts, cart, and checkout",
+          body: "You are responsible for the accuracy of information you submit at checkout. The on-site cart and cash-on-delivery (COD) checkout place a request for clinician review and delivery. Medication is only dispensed if a licensed clinician approves. Payment is collected on delivery for COD orders. Card payments may be added later.",
         },
         {
           heading: "Limitation of liability",

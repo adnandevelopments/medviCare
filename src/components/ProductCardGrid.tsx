@@ -16,7 +16,7 @@ export default function ProductCardGrid({
 
   return (
     <div
-      className={`grid gap-5 sm:grid-cols-2 ${
+      className={`grid gap-3 sm:grid-cols-2 sm:gap-4 ${
         columns === "dense" ? "lg:grid-cols-3" : "lg:grid-cols-3 xl:grid-cols-4"
       }`}
     >
@@ -30,29 +30,29 @@ export default function ProductCardGrid({
           >
             <Link
               href={product.href}
-              className="relative aspect-[4/5] w-full overflow-hidden bg-white"
+              className="relative h-[140px] w-full shrink-0 overflow-hidden bg-white md:h-[152px]"
             >
               <Image
                 src={product.image}
                 alt={product.name}
                 fill
-                className="object-contain object-center p-8 transition-transform duration-500 ease-out group-hover:scale-110"
+                className="object-contain object-center p-3 transition-transform duration-500 ease-out group-hover:scale-105"
                 sizes="(max-width: 768px) 50vw, 33vw"
               />
-              <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-white/90 to-transparent px-4 pb-4 pt-10 text-center text-[12px] font-semibold uppercase tracking-[0.14em] text-ppc-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+              <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-white/90 to-transparent px-3 pb-3 pt-8 text-center text-[11px] font-semibold uppercase tracking-[0.14em] text-ppc-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                 View details
               </span>
             </Link>
-            <div className="flex flex-1 flex-col p-5">
+            <div className="flex flex-1 flex-col p-4">
               <Link href={product.href}>
-                <h3 className="text-[17px] font-semibold leading-tight text-ppc-primary md:text-[18px]">
+                <h3 className="text-[16px] font-semibold leading-tight text-ppc-primary md:text-[17px]">
                   {product.name}
                 </h3>
               </Link>
-              <p className="mt-2 line-clamp-2 flex-1 text-[13px] leading-relaxed text-ppc-primary/78 md:text-[14px]">
+              <p className="mt-1.5 line-clamp-2 flex-1 text-[12px] leading-relaxed text-ppc-primary/78 md:text-[13px]">
                 {product.blurb}
               </p>
-              <p className="mt-3 text-[16px] font-semibold text-ppc-accent">
+              <p className="mt-2 text-[15px] font-semibold text-ppc-accent">
                 {priceLabel}
               </p>
               <button
@@ -66,7 +66,7 @@ export default function ProductCardGrid({
                     image: product.image,
                   })
                 }
-                className="motion-press mt-4 w-full rounded-full bg-ppc-accent px-4 py-3 text-[13px] font-semibold uppercase tracking-[0.1em] text-white hover:bg-ppc-dark"
+                className="motion-press mt-3 w-full rounded-full bg-ppc-accent px-4 py-2.5 text-[12px] font-semibold uppercase tracking-[0.1em] text-white hover:bg-ppc-dark"
               >
                 Add to cart
               </button>

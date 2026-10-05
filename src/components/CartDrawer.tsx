@@ -41,21 +41,6 @@ export default function CartDrawer() {
 
   if (!open) return null;
 
-  const continueCare = () => {
-    const lines = items.map((item) => `${item.qty}× ${item.title} (${item.price})`);
-    try {
-      sessionStorage.setItem(
-        "medvicare-cart-note",
-        lines.length
-          ? `I would like a clinician review for:\n${lines.join("\n")}`
-          : "",
-      );
-    } catch {
-      /* ignore */
-    }
-    setOpen(false);
-  };
-
   return (
     <>
       <div
@@ -186,17 +171,27 @@ export default function CartDrawer() {
             </span>
           </div>
           <p className="mb-3 text-[11px] leading-relaxed text-ppc-primary/72">
-            Checkout starts a clinical intake. Medication is only dispensed if a
-            licensed clinician approves.
+            Checkout uses cash on delivery. Medication ships only if a licensed
+            clinician approves.
           </p>
           <div className="flex flex-col gap-2">
-            <Link
-              href="/contact?from=cart"
-              onClick={continueCare}
-              className="inline-flex items-center justify-center rounded-full bg-ppc-accent px-4 py-3 text-[14px] font-medium text-white hover:bg-ppc-accent-soft"
-            >
-              {items.length ? "Request clinician review" : "Contact care team"}
-            </Link>
+            {items.length > 0 ? (
+              <Link
+                href="/checkout"
+                onClick={() => setOpen(false)}
+                className="inline-flex items-center justify-center rounded-full bg-ppc-accent px-4 py-3 text-[14px] font-medium text-white hover:bg-ppc-accent-soft"
+              >
+                Checkout
+              </Link>
+            ) : (
+              <Link
+                href="/contact"
+                onClick={() => setOpen(false)}
+                className="inline-flex items-center justify-center rounded-full bg-ppc-accent px-4 py-3 text-[14px] font-medium text-white hover:bg-ppc-accent-soft"
+              >
+                Contact care team
+              </Link>
+            )}
             {items.length > 0 ? (
               <button
                 type="button"

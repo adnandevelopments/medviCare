@@ -18,6 +18,7 @@ export default function MedicationsPage() {
         title="Explore treatment options"
         description="Browse popular medication paths. A licensed clinician reviews every plan before anything is prescribed or shipped."
         image={media.pageHeroes.medications}
+        tall
       />
       <section className="site-section">
         <div className="site-inner">
