@@ -27,22 +27,12 @@ export default function TreatmentsPage() {
               href={item.href}
               className="motion-card group grid grid-cols-[140px_1fr] overflow-hidden rounded-2xl border-2 border-ppc-accent/35 bg-ppc-surface transition-all hover:border-ppc-accent md:grid-cols-[180px_1fr]"
             >
-              <div className="relative min-h-[160px] overflow-hidden bg-ppc-mint md:min-h-[180px]">
+              <div className="relative h-full min-h-[160px] self-stretch overflow-hidden bg-ppc-mint md:min-h-[180px]">
                 <Image
                   src={item.image}
                   alt={`${item.title} ${item.accent}`}
                   fill
-                  className={
-                    item.slug === "mental-health" ||
-                    item.slug === "weight-loss" ||
-                    item.slug === "quit-smoking" ||
-                    item.slug === "skin" ||
-                    item.slug === "longevity" ||
-                    item.slug === "sexual-health" ||
-                    item.slug === "hair-loss"
-                      ? "object-contain object-center p-2"
-                      : "object-cover object-[center_20%]"
-                  }
+                  className="object-contain object-center transition-transform duration-700 group-hover:scale-105"
                   sizes="(max-width: 768px) 140px, 180px"
                 />
               </div>

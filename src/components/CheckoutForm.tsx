@@ -3,7 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useMemo, useState, type ChangeEvent, type FormEvent } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ChangeEvent,
+  type FormEvent,
+} from "react";
 import { useCart } from "@/components/CartProvider";
 import {
   CA_PROVINCES,
@@ -39,6 +46,106 @@ function fieldClass(hasError?: boolean) {
   }`;
 }
 
+function ProvincePicker({
+  value,
+  onChange,
+  hasError,
+}: {
+  value: string;
+  onChange: (code: string) => void;
+  hasError?: boolean;
+}) {
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const selected =
+    CA_PROVINCES.find((p) => p.code === value) ?? CA_PROVINCES[0];
+
+  useEffect(() => {
+    if (!open) return;
+    const onDoc = (e: MouseEvent) => {
+      if (!rootRef.current?.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", onDoc);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDoc);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  return (
+    <div ref={rootRef} className="relative mt-1.5">
+      <button
+        type="button"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+        className={`flex w-full items-center justify-between rounded-xl border bg-white px-4 py-3 text-left text-[15px] text-ppc-primary outline-none transition-colors ${
+          hasError
+            ? "border-red-400"
+            : open
+              ? "border-ppc-accent ring-2 ring-ppc-accent/20"
+              : "border-ppc-border hover:border-ppc-accent/60"
+        }`}
+      >
+        <span>
+          <span className="font-medium">{selected.label}</span>
+          <span className="ml-2 text-[12px] text-ppc-primary/50">{selected.code}</span>
+        </span>
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          aria-hidden
+          className={`shrink-0 text-ppc-accent transition-transform ${open ? "rotate-180" : ""}`}
+        >
+          <path
+            d="M6 9l6 6 6-6"
+            stroke="currentColor"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
+
+      {open ? (
+        <ul
+          role="listbox"
+          className="absolute z-30 mt-2 max-h-56 w-full overflow-auto rounded-xl border border-ppc-border bg-white py-1.5 shadow-[0_18px_40px_-18px_rgba(61,82,160,0.45)]"
+        >
+          {CA_PROVINCES.map((p) => {
+            const active = p.code === value;
+            return (
+              <li key={p.code} role="option" aria-selected={active}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onChange(p.code);
+                    setOpen(false);
+                  }}
+                  className={`flex w-full items-center justify-between px-4 py-2.5 text-left text-[14px] transition-colors ${
+                    active
+                      ? "bg-ppc-mint font-semibold text-ppc-primary"
+                      : "text-ppc-primary hover:bg-ppc-mint/70"
+                  }`}
+                >
+                  <span>{p.label}</span>
+                  <span className="text-[12px] text-ppc-primary/50">{p.code}</span>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      ) : null}
+    </div>
+  );
+}
+
 export default function CheckoutForm() {
   const router = useRouter();
   const { items, clear, setOpen } = useCart();
@@ -53,9 +160,7 @@ export default function CheckoutForm() {
 
   const set =
     (key: keyof CheckoutAddress) =>
-    (
-      e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
-    ) => {
+    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       setForm((prev) => ({ ...prev, [key]: e.target.value }));
       setErrors((prev) => ({ ...prev, [key]: undefined, form: undefined }));
     };
@@ -261,21 +366,26 @@ export default function CheckoutForm() {
               ) : null}
             </label>
 
-            <label>
+            <div>
               <span className="text-[13px] font-medium text-ppc-primary">Province</span>
-              <select
-                className={fieldClass(!!errors.province)}
+              <ProvincePicker
                 value={form.province}
-                onChange={set("province")}
-                autoComplete="address-level1"
-              >
-                {CA_PROVINCES.map((p) => (
-                  <option key={p.code} value={p.code}>
-                    {p.label}
-                  </option>
-                ))}
-              </select>
-            </label>
+                hasError={!!errors.province}
+                onChange={(code) => {
+                  setForm((prev) => ({ ...prev, province: code }));
+                  setErrors((prev) => ({
+                    ...prev,
+                    province: undefined,
+                    form: undefined,
+                  }));
+                }}
+              />
+              {errors.province ? (
+                <span className="mt-1 block text-[12px] text-red-600">
+                  {errors.province}
+                </span>
+              ) : null}
+            </div>
 
             <label className="sm:col-span-2 sm:max-w-[220px]">
               <span className="text-[13px] font-medium text-ppc-primary">Postal code</span>

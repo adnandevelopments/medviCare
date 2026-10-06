@@ -26,20 +26,20 @@ export const treatmentHeroes: Record<string, string> = {
   "weight-loss": "/images/weightLoss.png",
   "hair-loss": media.treatments.hair,
   skin: media.treatments.skin,
-  longevity: media.treatments.longevity,
+  longevity: "/images/hero-longevity.jpg",
   "sexual-health": media.treatments.sex,
   "mental-health": media.pageHeroes.mental,
-  "quit-smoking": media.treatments.smoking,
+  "quit-smoking": "/images/hero-quit-smoking.jpg",
 };
 
 export const productHeroes: Record<string, string> = {
   "weight-loss": "/images/weightLoss.png",
   "hair-loss": "/images/hero-hair-foam.jpg",
   skin: media.treatments.skin,
-  longevity: media.treatments.longevity,
+  longevity: "/images/hero-longevity.jpg",
   "sexual-health": media.treatments.sex,
   "mental-health": media.pageHeroes.mental,
-  "quit-smoking": media.treatments.smoking,
+  "quit-smoking": "/images/hero-quit-smoking.jpg",
 };
 
 /** Unique product-page heroes so hair options do not share the treatment graphic. */

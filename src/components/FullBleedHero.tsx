@@ -52,10 +52,10 @@ export default function FullBleedHero({
               sizes="100vw"
               priority={priority}
             />
-            {underHeader || compact ? (
+            {underHeader || compact || tall ? (
               <>
-                <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/25" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/15" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/30" />
               </>
             ) : (
               <>

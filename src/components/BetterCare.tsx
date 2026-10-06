@@ -70,7 +70,7 @@ export default function BetterCare() {
                     src={item.image}
                     alt={`${item.title} ${item.accent}`}
                     fill
-                    className="object-contain object-center p-1.5 transition-transform duration-700 group-hover:scale-105"
+                    className="object-contain object-center transition-transform duration-700 group-hover:scale-105"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ppc-surface via-ppc-accent/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
